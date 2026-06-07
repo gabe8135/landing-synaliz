@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Synaliz | Sites profissionais para empresas</title>
+    <meta
+      name="description"
+      content="A Synaliz cria sites institucionais, landing pages, catálogos digitais e páginas corporativas para empresas que precisam se apresentar melhor online."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="assets/favicon.ico" sizes="any" />
+    <link rel="icon" href="assets/synaliz-simbolo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <canvas id="signal-field" aria-hidden="true"></canvas>
+
+    <header class="site-header">
+      <a class="brand" href="#inicio" aria-label="Voltar para o início">
+        <img class="brand-symbol" src="assets/synaliz-simbolo.svg" alt="" aria-hidden="true" />
+        <svg
+          class="brand-logo"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 2076.89 226.8"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path d="M402.81,2006.39l56.73-.23c6.58,21.82,30.1,32.72,74.09,32.72q30.12,0,46.32-8.38t16.21-20.79q0-9-7.35-16.68t-31.5-12l-60-11q-30.81-5.64-45.52-12.81A59.25,59.25,0,0,1,428.22,1937a48.73,48.73,0,0,1-8.85-27.89q0-29.49,31.26-47.31t80-17.81q40.46,0,72.3,12.41c21.23,8.28,34.76,29.76,40.58,44.91L588,1900.9c-8.28-16.65-25.81-25-56.16-25q-26.44,0-40.35,7.73t-13.91,19.67q0,18.86,43.68,26.44l53.34,9.35q48.51,8.54,65.06,25.22t16.56,36.84q0,32.4-34.83,51T531.1,2070.8q-46.68,0-81.73-13.7C426,2048,410.47,2025.74,402.81,2006.39Z" transform="translate(-402.81 -1844)"></path>
+          <path d="M884.53,2067.42H851.09a26.58,26.58,0,0,1-26.57-26.57v-66.28l-94.14-112a9.23,9.23,0,0,1,7.07-15.17h48.68l74.49,90.75,71.27-90.75h54.26L884.53,1974.57Z" transform="translate(-402.81 -1844)"></path>
+          <path d="M1312.91,2067.42h-55l-119.09-140.57-9-10.47q-2.76-3.23-8.5-10.16v161.2h-45.52v-175a45,45,0,0,1,45-45h0a37.74,37.74,0,0,1,28.8,13.33L1248.3,1977q1.38,1.6,20,23.69V1847.39h44.6Z" transform="translate(-402.81 -1844)"></path>
+          <path d="M1982.29,2067.42H1789.17v-220h59.55v184.08h133.57Z" transform="translate(-402.81 -1844)"></path>
+          <path d="M2142.14,2067.42h-56.55V1876.91a29.51,29.51,0,0,1,29.52-29.52h27Z" transform="translate(-402.81 -1844)"></path>
+          <path d="M2479.71,2033.24v34.18h-232v-8.22a54.8,54.8,0,0,1,16.48-39.18l144.23-141.2h-118a31.43,31.43,0,0,1-31.43-31.43h216.11v31.43l-158.87,154.42Z" transform="translate(-402.81 -1844)"></path>
+          <path d="M1543.34,1885.1l45.75,98.17h-62.81l-13.1,31.76h91.08l25.06,52.39h60.47l-105.3-220h-43.25a41.71,41.71,0,0,0-37.71,23.87l-92.85,196.16H1459Z" transform="translate(-402.81 -1844)"></path>
+        </svg>
+      </a>
+      <nav class="desktop-nav" aria-label="Navegação principal">
+        <a href="#servicos">Serviços</a>
+        <a href="#processo">Processo</a>
+        <a href="#projetos">Entrega</a>
+        <a href="#contato">Contato</a>
+      </nav>
+      <a class="header-cta" href="#contato">Solicitar proposta</a>
+      <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+      </button>
+    </header>
+
+    <nav class="mobile-nav" aria-label="Navegação mobile">
+      <a href="#servicos">Serviços</a>
+      <a href="#processo">Processo</a>
+      <a href="#projetos">Entrega</a>
+      <a href="#contato">Contato</a>
+    </nav>
+
+    <main>
+      <section class="hero section-shell" id="inicio">
+        <div class="hero-copy">
+          <p class="eyebrow">Synaliz | Sites profissionais</p>
+          <h1>Seu negócio é único. Seu site também precisa ser.</h1>
+          <p class="hero-text">
+            A Synaliz cria sites sob medida para empresas que valorizam o que apresentam.
+            Nada de template genérico: cada página nasce com a sua marca, sua oferta e seu objetivo.
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#contato">Quero um site profissional</a>
+            <a class="btn secondary" href="#servicos">Ver soluções</a>
+          </div>
+          <div class="hero-stats" aria-label="Resumo dos diferenciais">
+            <span><strong>Institucional</strong> para gerar autoridade</span>
+            <span><strong>Catálogo</strong> para apresentar produtos</span>
+            <span><strong>Landing pages</strong> para campanhas e captação</span>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-label="Prévia visual de um site profissional">
+          <div class="scan-line"></div>
+          <div class="browser-frame">
+            <div class="browser-top">
+              <span></span>
+              <span></span>
+              <span></span>
+              <small>site-pronto.app</small>
+            </div>
+            <div class="mockup-grid">
+              <div class="mock-hero">
+                <span class="pulse-dot"></span>
+                <p>Site profissional pronto</p>
+                <h2>Marca + Conteúdo + Tecnologia</h2>
+              </div>
+              <div class="metric-card">
+                <small>Velocidade</small>
+                <strong>98</strong>
+                <span>experiência fluida</span>
+              </div>
+              <div class="metric-card accent">
+                <small>Aplicações</small>
+                <strong>4+</strong>
+                <span>formatos de site</span>
+              </div>
+              <div class="code-card">
+                <span>const site = build({</span>
+                <span> ux: "claro",</span>
+                <span> seo: "ativo",</span>
+                <span> trust: "alto"</span>
+                <span>});</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell services" id="servicos">
+        <div class="section-heading">
+          <p class="eyebrow">Soluções para empresas de todos os tamanhos</p>
+          <h2>Sites para apresentar sua marca com clareza.</h2>
+          <p>
+            Institucional, landing page, catálogo ou projeto corporativo. Cada formato com uma função clara.
+          </p>
+        </div>
+        <div class="service-grid">
+          <article>
+            <span class="icon">01</span>
+            <h3>Sites institucionais</h3>
+            <p>Para apresentar sua empresa, serviços, diferenciais e formas de contato.</p>
+          </article>
+          <article>
+            <span class="icon">02</span>
+            <h3>Landing pages</h3>
+            <p>Para campanhas, lançamentos, ofertas específicas e captação de leads.</p>
+          </article>
+          <article>
+            <span class="icon">03</span>
+            <h3>Catálogos digitais</h3>
+            <p>Para exibir produtos, categorias e informações comerciais com organização.</p>
+          </article>
+          <article>
+            <span class="icon">04</span>
+            <h3>Sites corporativos</h3>
+            <p>Para marcas que precisam de mais páginas, seções, integrações e evolução.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="marquee" aria-label="Tecnologias e diferenciais">
+        <div>
+          <span>React</span>
+          <span>Next.js</span>
+          <span>Vercel</span>
+          <span>SEO técnico</span>
+          <span>UX Design</span>
+          <span>Figma</span>
+          <span>Analytics</span>
+          <span>Notion</span>
+          <span>React</span>
+          <span>Next.js</span>
+          <span>Vercel</span>
+          <span>SEO técnico</span>
+          <span>UX Design</span>
+          <span>Figma</span>
+          <span>Analytics</span>
+          <span>Notion</span>
+        </div>
+      </section>
+
+      <section class="section-shell process" id="processo">
+        <div class="section-heading compact">
+          <p class="eyebrow">Processo simples</p>
+          <h2>Processo claro do briefing ao lançamento.</h2>
+        </div>
+        <div class="timeline">
+          <article>
+            <span>01</span>
+            <h3>Entendemos seu objetivo</h3>
+            <p>Entendemos sua empresa, público, objetivo e tipo de site ideal.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Desenhamos a página certa</h3>
+            <p>Organizamos conteúdo, páginas e chamadas para facilitar a leitura.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Desenvolvemos com qualidade</h3>
+            <p>Criamos um site responsivo, rápido e preparado para qualquer tela.</p>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>Publicamos e deixamos tudo claro</h3>
+            <p>Colocamos no ar, conectamos métricas e deixamos tudo orientado.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-shell proof" id="projetos">
+        <div class="proof-panel">
+          <div>
+            <p class="eyebrow">Para quem é</p>
+            <h2>Para quem quer parecer mais profissional online.</h2>
+            <p>
+              Quando alguém pesquisa sua empresa, ela precisa encontrar uma apresentação clara,
+              confiável e atual.
+            </p>
+          </div>
+          <div class="proof-side">
+            <div class="deliverables">
+              <span>Institucional</span>
+              <span>Landing pages</span>
+              <span>Catálogo de vendas</span>
+              <span>Site corporativo</span>
+              <span>SEO inicial</span>
+              <span>Métricas instaladas</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell contact" id="contato">
+        <div class="contact-card">
+          <div>
+            <p class="eyebrow">Próximo passo</p>
+            <h2>Quer tirar seu site do improviso?</h2>
+            <p>
+              Conte o que sua empresa precisa. A Synaliz indica o melhor formato e o próximo passo.
+            </p>
+          </div>
+          <form class="contact-form">
+            <label>
+              Nome
+              <input type="text" name="nome" placeholder="Seu nome" />
+            </label>
+            <label>
+              WhatsApp ou e-mail
+              <input type="text" name="contato" placeholder="Como posso falar com você?" />
+            </label>
+            <label>
+              Projeto
+              <textarea name="projeto" rows="4" placeholder="Preciso de um site institucional, catálogo, landing page..."></textarea>
+            </label>
+            <button class="btn primary" type="submit">Pedir análise do projeto</button>
+            <p class="form-note">O envio abre seu aplicativo de e-mail com o briefing preenchido.</p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="footer-logo" href="#inicio" aria-label="Voltar para o início">
+            <img class="brand-symbol" src="assets/synaliz-simbolo.svg" alt="" aria-hidden="true" />
+            <svg
+              class="brand-logo"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 2076.89 226.8"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M402.81,2006.39l56.73-.23c6.58,21.82,30.1,32.72,74.09,32.72q30.12,0,46.32-8.38t16.21-20.79q0-9-7.35-16.68t-31.5-12l-60-11q-30.81-5.64-45.52-12.81A59.25,59.25,0,0,1,428.22,1937a48.73,48.73,0,0,1-8.85-27.89q0-29.49,31.26-47.31t80-17.81q40.46,0,72.3,12.41c21.23,8.28,34.76,29.76,40.58,44.91L588,1900.9c-8.28-16.65-25.81-25-56.16-25q-26.44,0-40.35,7.73t-13.91,19.67q0,18.86,43.68,26.44l53.34,9.35q48.51,8.54,65.06,25.22t16.56,36.84q0,32.4-34.83,51T531.1,2070.8q-46.68,0-81.73-13.7C426,2048,410.47,2025.74,402.81,2006.39Z" transform="translate(-402.81 -1844)"></path>
+              <path d="M884.53,2067.42H851.09a26.58,26.58,0,0,1-26.57-26.57v-66.28l-94.14-112a9.23,9.23,0,0,1,7.07-15.17h48.68l74.49,90.75,71.27-90.75h54.26L884.53,1974.57Z" transform="translate(-402.81 -1844)"></path>
+              <path d="M1312.91,2067.42h-55l-119.09-140.57-9-10.47q-2.76-3.23-8.5-10.16v161.2h-45.52v-175a45,45,0,0,1,45-45h0a37.74,37.74,0,0,1,28.8,13.33L1248.3,1977q1.38,1.6,20,23.69V1847.39h44.6Z" transform="translate(-402.81 -1844)"></path>
+              <path d="M1982.29,2067.42H1789.17v-220h59.55v184.08h133.57Z" transform="translate(-402.81 -1844)"></path>
+              <path d="M2142.14,2067.42h-56.55V1876.91a29.51,29.51,0,0,1,29.52-29.52h27Z" transform="translate(-402.81 -1844)"></path>
+              <path d="M2479.71,2033.24v34.18h-232v-8.22a54.8,54.8,0,0,1,16.48-39.18l144.23-141.2h-118a31.43,31.43,0,0,1-31.43-31.43h216.11v31.43l-158.87,154.42Z" transform="translate(-402.81 -1844)"></path>
+              <path d="M1543.34,1885.1l45.75,98.17h-62.81l-13.1,31.76h91.08l25.06,52.39h60.47l-105.3-220h-43.25a41.71,41.71,0,0,0-37.71,23.87l-92.85,196.16H1459Z" transform="translate(-402.81 -1844)"></path>
+            </svg>
+          </a>
+          <p>
+            Desenvolvimento de sites profissionais para empresas que querem se apresentar melhor online.
+          </p>
+          <span class="footer-signature">Direção técnica: Gabriel Ramos</span>
+        </div>
+
+        <div class="footer-column">
+          <h3>Navegação</h3>
+          <a href="#inicio">Início</a>
+          <a href="#servicos">Serviços</a>
+          <a href="#processo">Processo</a>
+          <a href="#contato">Contato</a>
+        </div>
+
+        <div class="footer-column">
+          <h3>Serviços</h3>
+          <span>Sites institucionais</span>
+          <span>Landing pages</span>
+          <span>Catálogos digitais</span>
+          <span>Sites corporativos</span>
+        </div>
+
+        <div class="footer-column footer-contact">
+          <h3>Contato</h3>
+          <a href="mailto:gabriel@synaliz.com">gabriel@synaliz.com</a>
+          <a href="https://www.synaliz.com" target="_blank" rel="noreferrer">www.synaliz.com</a>
+          <a class="footer-cta" href="#contato">Solicitar proposta</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 Synaliz. Todos os direitos reservados.</span>
+        <span>Sites institucionais, landing pages, catálogos e projetos corporativos.</span>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
