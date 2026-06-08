@@ -1,9 +1,68 @@
 const menuToggle = document.querySelector(".menu-toggle");
 const mobileNav = document.querySelector(".mobile-nav");
 const contactForm = document.querySelector(".contact-form");
+const serviceCards = document.querySelectorAll("[data-service]");
+const serviceModal = document.querySelector("#service-modal");
+const modalPanel = serviceModal?.querySelector(".modal-panel");
+const modalKicker = document.querySelector("#modal-kicker");
+const modalTitle = document.querySelector("#modal-title");
+const modalIntro = document.querySelector("#modal-intro");
+const modalContent = document.querySelector("#modal-content");
+const modalCta = serviceModal?.querySelector(".modal-cta");
+const successModal = document.querySelector("#contact-success-modal");
+const successPanel = successModal?.querySelector(".modal-panel");
+const successClose = successModal?.querySelector(".success-close");
+const formNote = contactForm?.querySelector(".form-note");
 const animatedItems = document.querySelectorAll(
-  ".section-heading, .service-grid article, .timeline article, .proof-panel, .deliverables span, .contact-card"
+  ".section-heading, .service-grid article, .timeline article, .contact-card"
 );
+
+const serviceDetails = {
+  institucional: {
+    kicker: "Site institucional",
+    title: "Para sua empresa ser entendida e levada a sério.",
+    intro:
+      "É o site ideal para apresentar quem você é, o que oferece e como o cliente pode falar com você. Funciona como a base oficial da sua marca na internet.",
+    bullets: [
+      "Mostra serviços, diferenciais, localização e formas de contato.",
+      "Ajuda o cliente a confiar antes de chamar no WhatsApp.",
+      "Indicado para empresas, profissionais e negócios locais.",
+    ],
+  },
+  landing: {
+    kicker: "Landing page",
+    title: "Uma página focada em uma ação.",
+    intro:
+      "A landing page é feita para campanhas, lançamentos ou ofertas específicas. Ela tira distrações e conduz a pessoa para pedir orçamento, se cadastrar ou entrar em contato.",
+    bullets: [
+      "Ideal para tráfego pago, anúncios e campanhas pontuais.",
+      "Texto, design e botões pensados para conversão.",
+      "Boa quando você quer vender uma ideia rapidamente.",
+    ],
+  },
+  catalogo: {
+    kicker: "Catálogo digital",
+    title: "Produtos organizados para facilitar a escolha.",
+    intro:
+      "O catálogo digital apresenta produtos, categorias e informações comerciais de forma clara. Ele ajuda o cliente a entender opções antes de pedir preço ou orçamento.",
+    bullets: [
+      "Organiza produtos, linhas, serviços ou pacotes.",
+      "Reduz perguntas repetidas no atendimento.",
+      "Indicado para lojas, representantes, indústrias e serviços com várias opções.",
+    ],
+  },
+  corporativo: {
+    kicker: "Site corporativo",
+    title: "Mais estrutura para uma marca em crescimento.",
+    intro:
+      "O site corporativo é indicado quando sua empresa precisa de mais páginas, mais conteúdo e uma apresentação mais completa para públicos diferentes.",
+    bullets: [
+      "Pode incluir páginas de serviços, equipe, cases, blog e áreas específicas.",
+      "Passa mais autoridade para empresas em expansão.",
+      "É preparado para crescer junto com a marca.",
+    ],
+  },
+};
 
 function setMenuState(isOpen) {
   if (!menuToggle || !mobileNav) return;
@@ -35,20 +94,125 @@ document.addEventListener("click", (event) => {
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     setMenuState(false);
+    closeServiceModal();
+    closeSuccessModal();
   }
 });
 
-contactForm?.addEventListener("submit", (event) => {
+function openServiceModal(serviceKey) {
+  const details = serviceDetails[serviceKey];
+  if (!details || !serviceModal || !modalKicker || !modalTitle || !modalIntro || !modalContent) return;
+
+  modalKicker.textContent = details.kicker;
+  modalTitle.textContent = details.title;
+  modalIntro.textContent = details.intro;
+  modalContent.replaceChildren(
+    ...details.bullets.map((item) => {
+      const bullet = document.createElement("span");
+      bullet.textContent = item;
+      return bullet;
+    })
+  );
+
+  serviceModal.classList.add("open");
+  serviceModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
+}
+
+function closeServiceModal() {
+  serviceModal?.classList.remove("open");
+  serviceModal?.setAttribute("aria-hidden", "true");
+  syncModalState();
+}
+
+function openSuccessModal() {
+  successModal?.classList.add("open");
+  successModal?.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
+}
+
+function closeSuccessModal() {
+  successModal?.classList.remove("open");
+  successModal?.setAttribute("aria-hidden", "true");
+  syncModalState();
+}
+
+function syncModalState() {
+  const hasOpenModal = serviceModal?.classList.contains("open") || successModal?.classList.contains("open");
+  document.body.classList.toggle("modal-open", Boolean(hasOpenModal));
+}
+
+serviceCards.forEach((card) => {
+  card.addEventListener("click", () => {
+    openServiceModal(card.dataset.service);
+  });
+
+  card.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openServiceModal(card.dataset.service);
+    }
+  });
+});
+
+serviceModal?.addEventListener("click", (event) => {
+  if (!modalPanel?.contains(event.target)) {
+    closeServiceModal();
+  }
+});
+
+modalCta?.addEventListener("click", closeServiceModal);
+
+successModal?.addEventListener("click", (event) => {
+  if (!successPanel?.contains(event.target)) {
+    closeSuccessModal();
+  }
+});
+
+successClose?.addEventListener("click", closeSuccessModal);
+
+contactForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
   const data = new FormData(contactForm);
-  const nome = data.get("nome") || "";
-  const contato = data.get("contato") || "";
-  const projeto = data.get("projeto") || "";
-  const subject = encodeURIComponent("Briefing de site com a Synaliz");
-  const body = encodeURIComponent(
-    `Nome: ${nome}\nContato: ${contato}\n\nProjeto:\n${projeto}`
-  );
-  window.location.href = `mailto:gabriel@synaliz.com?subject=${subject}&body=${body}`;
+  const submitButton = contactForm.querySelector("button[type='submit']");
+  const originalButtonText = submitButton?.textContent || "Enviar";
+
+  formNote?.classList.remove("error");
+  if (formNote) formNote.textContent = "Enviando sua mensagem...";
+  if (submitButton) {
+    submitButton.disabled = true;
+    submitButton.textContent = "Enviando...";
+  }
+
+  try {
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        nome: data.get("nome") || "",
+        contato: data.get("contato") || "",
+        projeto: data.get("projeto") || "",
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Falha no envio");
+    }
+
+    contactForm.reset();
+    if (formNote) formNote.textContent = "Mensagem enviada com sucesso.";
+    openSuccessModal();
+  } catch {
+    if (formNote) {
+      formNote.textContent = "Não foi possível enviar agora. Tente novamente ou fale por gabriel@synaliz.com.";
+      formNote.classList.add("error");
+    }
+  } finally {
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.textContent = originalButtonText;
+    }
+  }
 });
 
 if ("IntersectionObserver" in window) {
