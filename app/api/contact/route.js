@@ -1,5 +1,7 @@
+import { NextResponse } from "next/server";
+
 const RESEND_ENDPOINT = "https://api.resend.com/emails";
-const TO_EMAIL = "gabriel@synaliz.com";
+const DEFAULT_TO_EMAIL = "ramos.analista@gmail.com";
 
 function clean(value) {
   return String(value || "").trim();
@@ -14,33 +16,18 @@ function escapeHtml(value) {
     .replace(/'/g, "&#039;");
 }
 
-async function parseBody(request) {
-  if (typeof request.body === "string") return JSON.parse(request.body || "{}");
-  if (request.body && typeof request.body === "object") return request.body;
-
-  const chunks = [];
-  for await (const chunk of request) {
-    chunks.push(chunk);
-  }
-
-  return JSON.parse(Buffer.concat(chunks).toString("utf8") || "{}");
-}
-
-module.exports = async function handler(request, response) {
-  if (request.method !== "POST") {
-    return response.status(405).json({ error: "Metodo nao permitido." });
-  }
-
+export async function POST(request) {
   const apiKey = process.env.RESEND_API_KEY;
+
   if (!apiKey) {
-    return response.status(500).json({ error: "RESEND_API_KEY nao configurada." });
+    return NextResponse.json({ error: "RESEND_API_KEY nao configurada." }, { status: 500 });
   }
 
   let body;
   try {
-    body = await parseBody(request);
+    body = await request.json();
   } catch {
-    return response.status(400).json({ error: "Dados invalidos." });
+    return NextResponse.json({ error: "Dados invalidos." }, { status: 400 });
   }
 
   const nome = clean(body.nome);
@@ -48,10 +35,11 @@ module.exports = async function handler(request, response) {
   const projeto = clean(body.projeto);
 
   if (!nome || !contato || !projeto) {
-    return response.status(400).json({ error: "Preencha nome, contato e projeto." });
+    return NextResponse.json({ error: "Preencha nome, contato e projeto." }, { status: 400 });
   }
 
   const from = process.env.RESEND_FROM || "Synaliz <onboarding@resend.dev>";
+  const to = process.env.CONTACT_TO_EMAIL || DEFAULT_TO_EMAIL;
   const nomeHtml = escapeHtml(nome);
   const contatoHtml = escapeHtml(contato);
   const projetoHtml = escapeHtml(projeto).replace(/\n/g, "<br>");
@@ -64,7 +52,7 @@ module.exports = async function handler(request, response) {
     },
     body: JSON.stringify({
       from,
-      to: [TO_EMAIL],
+      to: [to],
       subject: "Novo briefing pelo site da Synaliz",
       text: [
         "Novo contato pelo site da Synaliz",
@@ -90,8 +78,8 @@ module.exports = async function handler(request, response) {
   if (!resendResponse.ok) {
     const errorText = await resendResponse.text();
     console.error("Erro Resend:", errorText);
-    return response.status(502).json({ error: "Nao foi possivel enviar agora." });
+    return NextResponse.json({ error: "Nao foi possivel enviar agora." }, { status: 502 });
   }
 
-  return response.status(200).json({ ok: true });
-};
+  return NextResponse.json({ ok: true });
+}
