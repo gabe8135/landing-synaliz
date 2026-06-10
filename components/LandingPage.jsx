@@ -440,8 +440,8 @@ export default function LandingPage() {
           <div className="section-heading compact">
             <p className="eyebrow">Processo simples</p>
             <h2 className="balanced-title">
-              <span>Sua ideia sai do improviso</span>
-              <span>e vira um site pronto.</span>
+              <span>Sua ideia sai do papel</span>
+              <span>e vira presença de destaque.</span>
             </h2>
           </div>
           <div className="timeline">
@@ -531,7 +531,7 @@ export default function LandingPage() {
             <div className="modal-kicker">Mensagem enviada</div>
             <h2 id="success-title">Mensagem recebida.</h2>
             <p>
-              Sua mensagem chegou. Vou analisar sua necessidade e responder com o caminho mais indicado.
+              Sua mensagem chegou. Vamos analisar sua necessidade e responder com o caminho mais indicado.
             </p>
             <button className="btn primary modal-cta success-close" type="button" onClick={() => setSuccessOpen(false)}>
               Fechar
