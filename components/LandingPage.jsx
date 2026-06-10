@@ -74,8 +74,7 @@ const processSteps = [
 function Brand({ className = "brand", label = "Voltar para o início" }) {
   return (
     <a className={className} href="#inicio" aria-label={label}>
-      <img className="brand-symbol" src="/assets/synaliz-simbolo.svg" alt="" aria-hidden="true" />
-      <span className="brand-wordmark" aria-hidden="true">Synaliz</span>
+      <img className="brand-complete" src="/assets/synaliz-logo-oficial.svg" alt="" aria-hidden="true" />
     </a>
   );
 }
@@ -114,9 +113,9 @@ function SignalField() {
 
     function draw() {
       ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = "rgba(159, 179, 192, 0.72)";
-      ctx.strokeStyle = "rgba(90, 141, 160, 0.18)";
-      ctx.lineWidth = 1;
+      ctx.fillStyle = "rgba(159, 179, 192, 0.82)";
+      ctx.strokeStyle = "rgba(90, 141, 160, 0.24)";
+      ctx.lineWidth = 1.25;
 
       nodes.forEach((node, index) => {
         node.x += node.vx;
@@ -126,7 +125,7 @@ function SignalField() {
         if (node.y < 0 || node.y > height) node.vy *= -1;
 
         ctx.beginPath();
-        ctx.arc(node.x, node.y, 1.4, 0, Math.PI * 2);
+        ctx.arc(node.x, node.y, 2.15, 0, Math.PI * 2);
         ctx.fill();
 
         for (let i = index + 1; i < nodes.length; i += 1) {
@@ -135,8 +134,8 @@ function SignalField() {
           const dy = node.y - other.y;
           const distance = Math.hypot(dx, dy);
 
-          if (distance < 145) {
-            ctx.globalAlpha = 1 - distance / 145;
+          if (distance < 165) {
+            ctx.globalAlpha = 1 - distance / 165;
             ctx.beginPath();
             ctx.moveTo(node.x, node.y);
             ctx.lineTo(other.x, other.y);
@@ -163,6 +162,7 @@ function SignalField() {
 }
 
 export default function LandingPage() {
+  const heroFrameRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
   const [successOpen, setSuccessOpen] = useState(false);
@@ -203,6 +203,14 @@ export default function LandingPage() {
 
     animatedItems.forEach((item, index) => {
       item.classList.add("reveal");
+      item.classList.remove("reveal-from-left", "reveal-from-right", "reveal-from-bottom");
+      item.classList.add(
+        index % 3 === 0
+          ? "reveal-from-bottom"
+          : index % 3 === 1
+            ? "reveal-from-right"
+            : "reveal-from-left"
+      );
       item.style.setProperty("--reveal-delay", `${Math.min(index % 4, 3) * 90}ms`);
     });
 
@@ -254,6 +262,46 @@ export default function LandingPage() {
     }
   }
 
+  function handleHeroTilt(event) {
+    if (window.matchMedia("(max-width: 760px)").matches) return;
+
+    const frame = heroFrameRef.current;
+    if (!frame) return;
+
+    const rect = frame.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
+    const targetTiltY = (x - 0.5) * 18;
+    const targetTiltX = (0.5 - y) * 14;
+    const currentTiltX = parseFloat(frame.dataset.tiltX || "6");
+    const currentTiltY = parseFloat(frame.dataset.tiltY || "-13");
+    const ease = frame.classList.contains("is-tilting") ? 1 : 0.35;
+    const tiltX = currentTiltX + (targetTiltX - currentTiltX) * ease;
+    const tiltY = currentTiltY + (targetTiltY - currentTiltY) * ease;
+
+    frame.classList.add("is-tilting");
+    frame.dataset.tiltX = tiltX.toFixed(2);
+    frame.dataset.tiltY = tiltY.toFixed(2);
+    frame.style.setProperty("--tilt-x", `${tiltX.toFixed(2)}deg`);
+    frame.style.setProperty("--tilt-y", `${tiltY.toFixed(2)}deg`);
+    frame.style.setProperty("--glow-x", `${(x * 100).toFixed(1)}%`);
+    frame.style.setProperty("--glow-y", `${(y * 100).toFixed(1)}%`);
+  }
+
+  function resetHeroTilt() {
+    const frame = heroFrameRef.current;
+    if (!frame) return;
+
+    frame.classList.remove("is-tilting");
+    frame.style.setProperty("--tilt-x", "6deg");
+    frame.style.setProperty("--tilt-y", "-13deg");
+    frame.style.setProperty("--tilt-z", "-1deg");
+    frame.style.setProperty("--glow-x", "52%");
+    frame.style.setProperty("--glow-y", "18%");
+    frame.dataset.tiltX = "6";
+    frame.dataset.tiltY = "-13";
+  }
+
   return (
     <>
       <SignalField />
@@ -290,7 +338,7 @@ export default function LandingPage() {
         <section className="hero section-shell" id="inicio">
           <div className="hero-copy">
             <p className="eyebrow">Synaliz | Sites profissionais</p>
-            <h1>Seu negócio é único. Seu site também precisa ser.</h1>
+            <h1>Sua marca não cabe em um site genérico.</h1>
             <p className="hero-text">
               Criamos sites sob medida para sua marca ser entendida, transmitir confiança e gerar
               contatos sem depender de template pronto.
@@ -312,7 +360,12 @@ export default function LandingPage() {
               <span>Projeto sob medida</span>
               <strong>Não é template. É presença com identidade.</strong>
             </div>
-            <div className="browser-frame">
+            <div
+              ref={heroFrameRef}
+              className="browser-frame"
+              onPointerMove={handleHeroTilt}
+              onPointerLeave={resetHeroTilt}
+            >
               <div className="browser-top">
                 <span />
                 <span />
