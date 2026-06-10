@@ -168,7 +168,7 @@ export default function LandingPage() {
   const [successOpen, setSuccessOpen] = useState(false);
   const [formState, setFormState] = useState({
     sending: false,
-    message: "Você recebe um retorno no contato informado.",
+    message: "Respondo pelo contato informado com o melhor caminho para o projeto.",
     error: false,
   });
 
@@ -236,7 +236,7 @@ export default function LandingPage() {
         body: JSON.stringify({
           nome: data.get("nome") || "",
           contato: data.get("contato") || "",
-          projeto: data.get("projeto") || "",
+          necessidade: data.get("necessidade") || "",
         }),
       });
 
@@ -398,7 +398,7 @@ export default function LandingPage() {
             <div>
               <p className="eyebrow">Próximo passo</p>
               <h2>Quer um site com a cara da sua marca?</h2>
-              <p>Conte sua ideia. A Synaliz indica o caminho.</p>
+              <p>Conte o que você precisa. A Synaliz indica o melhor formato.</p>
             </div>
             <form className="contact-form" onSubmit={handleContactSubmit}>
               <label>
@@ -410,16 +410,16 @@ export default function LandingPage() {
                 <input type="text" name="contato" placeholder="Como posso falar com você?" required />
               </label>
               <label>
-                Projeto
+                Necessidade
                 <textarea
-                  name="projeto"
+                  name="necessidade"
                   rows={4}
-                  placeholder="Preciso de um site institucional, catálogo, landing page..."
+                  placeholder="Ex: preciso apresentar minha empresa, divulgar serviços, organizar produtos ou captar contatos."
                   required
                 />
               </label>
               <button className="btn primary" type="submit" disabled={formState.sending}>
-                {formState.sending ? "Enviando..." : "Pedir análise do projeto"}
+                {formState.sending ? "Enviando..." : "Pedir análise"}
               </button>
               <p className={`form-note ${formState.error ? "error" : ""}`} aria-live="polite">
                 {formState.message}
@@ -463,9 +463,9 @@ export default function LandingPage() {
             onClick={(event) => event.stopPropagation()}
           >
             <div className="modal-kicker">Mensagem enviada</div>
-            <h2 id="success-title">Recebemos seu briefing.</h2>
+            <h2 id="success-title">Mensagem recebida.</h2>
             <p>
-              Obrigado pelo contato. A Synaliz vai analisar sua ideia e responder pelo WhatsApp ou e-mail informado.
+              Sua mensagem chegou. Vou analisar sua necessidade e responder com o caminho mais indicado.
             </p>
             <button className="btn primary modal-cta success-close" type="button" onClick={() => setSuccessOpen(false)}>
               Fechar
