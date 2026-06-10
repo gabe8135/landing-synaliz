@@ -1,4 +1,4 @@
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Inter, Saira, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -13,10 +13,16 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 });
 
+const saira = Saira({
+  subsets: ["latin"],
+  variable: "--font-saira",
+  display: "swap",
+});
+
 export const metadata = {
   title: "Synaliz | Sites profissionais para empresas",
   description:
-    "Sites sob medida para marcas que querem parecer confiáveis, explicar rápido e receber mais contatos.",
+    "Sites sob medida para marcas que não querem parecer genéricas e precisam transformar visitas em contatos.",
   icons: {
     icon: [
       { url: "/assets/favicon.ico", sizes: "any" },
@@ -27,7 +33,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="pt-BR" className={`${inter.variable} ${spaceGrotesk.variable}`}>
+    <html lang="pt-BR" className={`${inter.variable} ${spaceGrotesk.variable} ${saira.variable}`}>
       <body>{children}</body>
     </html>
   );

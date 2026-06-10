@@ -7,14 +7,14 @@ const services = [
     key: "institucional",
     number: "01",
     title: "Sites institucionais",
-    summary: "Mostre quem você é e passe confiança.",
+    summary: "Sua empresa clara, séria e fácil de chamar.",
     kicker: "Site institucional",
-    modalTitle: "Para sua empresa ser entendida e levada a sério.",
+    modalTitle: "Para sua empresa parar de parecer improvisada.",
     intro:
-      "É o site ideal para apresentar quem você é, o que oferece e como o cliente pode falar com você. Funciona como a base oficial da sua marca na internet.",
+      "Quando alguém pesquisa sua marca, precisa entender rápido o que você faz e sentir segurança para chamar. O institucional organiza essa primeira impressão.",
     bullets: [
-      "Mostra serviços, diferenciais, localização e formas de contato.",
-      "Ajuda o cliente a confiar antes de chamar no WhatsApp.",
+      "Mostra serviços, diferenciais e formas de contato sem confusão.",
+      "Ajuda o cliente a confiar antes de pedir orçamento.",
       "Indicado para empresas, profissionais e negócios locais.",
     ],
   },
@@ -22,29 +22,29 @@ const services = [
     key: "landing",
     number: "02",
     title: "Landing pages",
-    summary: "Uma página direta para campanhas e ofertas.",
+    summary: "Uma oferta clara, sem distração.",
     kicker: "Landing page",
-    modalTitle: "Uma página focada em uma ação.",
+    modalTitle: "Para transformar atenção em ação.",
     intro:
-      "A landing page é feita para campanhas, lançamentos ou ofertas específicas. Ela tira distrações e conduz a pessoa para pedir orçamento, se cadastrar ou entrar em contato.",
+      "A landing page evita que o visitante se perca. Ela apresenta uma oferta, quebra objeções e conduz para o próximo passo.",
     bullets: [
       "Ideal para tráfego pago, anúncios e campanhas pontuais.",
       "Texto, design e botões pensados para conversão.",
-      "Boa quando você quer vender uma ideia rapidamente.",
+      "Boa para campanhas, lançamentos e captação de contatos.",
     ],
   },
   {
     key: "catalogo",
     number: "03",
     title: "Catálogos digitais",
-    summary: "Produtos organizados para facilitar a decisão.",
+    summary: "Produtos organizados para vender melhor.",
     kicker: "Catálogo digital",
-    modalTitle: "Produtos organizados para facilitar a escolha.",
+    modalTitle: "Para o cliente entender antes de perguntar preço.",
     intro:
-      "O catálogo digital apresenta produtos, categorias e informações comerciais de forma clara. Ele ajuda o cliente a entender opções antes de pedir preço ou orçamento.",
+      "Quando produtos ficam soltos em mensagens, imagens ou PDF, a decisão demora. O catálogo organiza tudo para o cliente comparar e avançar.",
     bullets: [
       "Organiza produtos, linhas, serviços ou pacotes.",
-      "Reduz perguntas repetidas no atendimento.",
+      "Reduz perguntas repetidas e melhora o atendimento.",
       "Indicado para lojas, representantes, indústrias e serviços com várias opções.",
     ],
   },
@@ -52,11 +52,11 @@ const services = [
     key: "corporativo",
     number: "04",
     title: "Sites corporativos",
-    summary: "Mais estrutura para marcas em crescimento.",
+    summary: "Estrutura para crescer sem parecer pequeno.",
     kicker: "Site corporativo",
-    modalTitle: "Mais estrutura para uma marca em crescimento.",
+    modalTitle: "Para marcas que precisam sustentar autoridade.",
     intro:
-      "O site corporativo é indicado quando sua empresa precisa de mais páginas, mais conteúdo e uma apresentação mais completa para públicos diferentes.",
+      "Quando sua empresa cresce, uma página simples pode não explicar tudo. O site corporativo cria estrutura para serviços, áreas, conteúdos e públicos diferentes.",
     bullets: [
       "Pode incluir páginas de serviços, equipe, cases, blog e áreas específicas.",
       "Passa mais autoridade para empresas em expansão.",
@@ -70,6 +70,15 @@ const processSteps = [
   ["02", "Criamos", "Design, copy e código."],
   ["03", "Publicamos", "Site no ar e métricas prontas."],
 ];
+
+const whatsappHref =
+  "https://wa.me/5513996481133?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Synaliz%20e%20quero%20conversar%20sobre%20um%20site.";
+
+function WhatsAppIcon() {
+  return (
+    <img className="whatsapp-icon" src="/assets/whatsapp.svg" alt="" aria-hidden="true" />
+  );
+}
 
 function Brand({ className = "brand", label = "Voltar para o início" }) {
   return (
@@ -337,20 +346,20 @@ export default function LandingPage() {
       <main>
         <section className="hero section-shell" id="inicio">
           <div className="hero-copy">
-            <p className="eyebrow">Synaliz | Sites profissionais</p>
+            <p className="eyebrow">Synaliz | Sites sob medida</p>
             <h1>Sua marca não cabe em um site genérico.</h1>
             <p className="hero-text">
-              Criamos sites sob medida para sua marca ser entendida, transmitir confiança e gerar
-              contatos sem depender de template pronto.
+              Templates podem até colocar sua empresa online. Mas só um site feito para sua marca
+              explica seu valor, transmite confiança e transforma visitas em contatos.
             </p>
             <div className="hero-actions">
               <a className="btn primary" href="#contato">Quero um site profissional</a>
               <a className="btn secondary" href="#servicos">Ver tipos de site</a>
             </div>
             <div className="hero-stats" aria-label="Resumo dos diferenciais">
-              <span><strong>Institucional</strong><small>marca e serviços</small></span>
-              <span><strong>Catálogo</strong><small>produtos organizados</small></span>
-              <span><strong>Landing page</strong><small>campanhas diretas</small></span>
+              <span><strong>Clareza</strong><small>para explicar sua oferta</small></span>
+              <span><strong>Confiança</strong><small>para parecer profissional</small></span>
+              <span><strong>Contato</strong><small>para gerar oportunidades</small></span>
             </div>
           </div>
 
@@ -358,7 +367,7 @@ export default function LandingPage() {
             <div className="scan-line" />
             <div className="mobile-signature" aria-hidden="true">
               <span>Projeto sob medida</span>
-              <strong>Não é template. É presença com identidade.</strong>
+              <strong>Não é template. É a sua marca com direção.</strong>
             </div>
             <div
               ref={heroFrameRef}
@@ -376,21 +385,21 @@ export default function LandingPage() {
                 <div className="mock-hero">
                   <span className="pulse-dot" />
                   <p>Feito para sua marca</p>
-                  <h2>Visual próprio. Mensagem clara. Site memorável.</h2>
+                  <h2>Clareza para explicar. Confiança para converter.</h2>
                 </div>
                 <div className="metric-card">
                   <small>Primeira impressão</small>
                   <strong>3s</strong>
-                  <span>para entender sua oferta</span>
+                  <span>para entender seu valor</span>
                 </div>
                 <div className="metric-card accent">
                   <small>Identidade</small>
                   <strong>1</strong>
-                  <span>site com a cara da marca</span>
+                  <span>site com intenção própria</span>
                 </div>
                 <div className="code-card">
-                  <span>Identidade visual</span>
-                  <span>Copy objetiva</span>
+                  <span>Mensagem clara</span>
+                  <span>Visual com identidade</span>
                   <span>SEO inicial</span>
                   <span>Contato sem atrito</span>
                 </div>
@@ -401,9 +410,9 @@ export default function LandingPage() {
 
         <section className="section-shell services" id="servicos">
           <div className="section-heading">
-            <p className="eyebrow">O que a Synaliz cria</p>
-            <h2>Sites para apresentar, vender ou organizar sua marca.</h2>
-            <p>Escolha o formato. A Synaliz transforma em uma experiência clara e profissional.</p>
+            <p className="eyebrow">Problema resolvido</p>
+            <h2>Seu site precisa explicar, convencer e facilitar o contato.</h2>
+            <p>A Synaliz cria o formato certo para sua marca parar de parecer genérica.</p>
           </div>
           <div className="service-grid">
             {services.map((service) => (
@@ -431,8 +440,8 @@ export default function LandingPage() {
           <div className="section-heading compact">
             <p className="eyebrow">Processo simples</p>
             <h2 className="balanced-title">
-              <span>Do briefing ao site no ar,</span>
-              <span>sem enrolação.</span>
+              <span>Sua ideia sai do improviso</span>
+              <span>e vira um site pronto.</span>
             </h2>
           </div>
           <div className="timeline">
@@ -451,7 +460,7 @@ export default function LandingPage() {
             <div>
               <p className="eyebrow">Próximo passo</p>
               <h2>Quer um site com a cara da sua marca?</h2>
-              <p>Conte o que você precisa. A Synaliz indica o melhor formato.</p>
+              <p>Conte sua necessidade. A Synaliz transforma em um caminho claro.</p>
             </div>
             <form className="contact-form" onSubmit={handleContactSubmit}>
               <label>
@@ -459,7 +468,7 @@ export default function LandingPage() {
                 <input type="text" name="nome" placeholder="Seu nome" required />
               </label>
               <label>
-                WhatsApp ou e-mail
+                Seu WhatsApp ou Email
                 <input type="text" name="contato" placeholder="Como posso falar com você?" required />
               </label>
               <label>
@@ -472,11 +481,15 @@ export default function LandingPage() {
                 />
               </label>
               <button className="btn primary" type="submit" disabled={formState.sending}>
-                {formState.sending ? "Enviando..." : "Pedir análise"}
+                {formState.sending ? "Enviando..." : "Receber análise"}
               </button>
               <p className={`form-note ${formState.error ? "error" : ""}`} aria-live="polite">
                 {formState.message}
               </p>
+              <a className="whatsapp-inline" href={whatsappHref} target="_blank" rel="noreferrer">
+                <WhatsAppIcon />
+                Prefiro chamar no WhatsApp
+              </a>
             </form>
           </div>
         </section>
@@ -531,7 +544,7 @@ export default function LandingPage() {
         <div className="footer-grid">
           <div className="footer-brand">
             <Brand className="footer-logo" />
-            <p>Sites sob medida para marcas que valorizam o que apresentam.</p>
+            <p>Sites sob medida para marcas que não querem parecer genéricas.</p>
             <p className="footer-mini">Estúdio de desenvolvimento web para empresas, marcas e profissionais.</p>
             <span className="footer-signature">Direção técnica: Gabriel Ramos</span>
           </div>
@@ -562,9 +575,14 @@ export default function LandingPage() {
 
         <div className="footer-bottom">
           <span>© 2026 Synaliz. Todos os direitos reservados.</span>
-          <span>Institucionais, landing pages, catálogos e sites corporativos.</span>
+          <span>Sites com clareza, identidade e intenção comercial.</span>
         </div>
       </footer>
+
+      <a className="whatsapp-float" href={whatsappHref} target="_blank" rel="noreferrer" aria-label="Chamar a Synaliz no WhatsApp">
+        <WhatsAppIcon />
+        <span>WhatsApp</span>
+      </a>
     </>
   );
 }
