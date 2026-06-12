@@ -347,7 +347,7 @@ export default function LandingPage() {
         <section className="hero section-shell" id="inicio">
           <div className="hero-copy">
             <p className="eyebrow">Synaliz | Sites sob medida</p>
-            <h1>Sua marca não cabe em um site genérico.</h1>
+            <h1>Seu site precisa estar à altura da sua marca.</h1>
             <p className="hero-text">
               Templates podem até colocar sua empresa online. Mas só um site feito para sua marca
               explica seu valor, transmite confiança e transforma visitas em contatos.
