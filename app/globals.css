@@ -1151,9 +1151,11 @@ textarea:focus {
   position: fixed;
   inset: 0;
   z-index: 80;
+  box-sizing: border-box;
   display: grid;
   place-items: center;
   padding: 24px;
+  overflow-x: hidden;
   overflow-y: auto;
   background:
     radial-gradient(circle at 50% 18%, rgba(0, 245, 255, 0.12), transparent 26rem),
@@ -1171,7 +1173,9 @@ textarea:focus {
 
 .modal-panel {
   position: relative;
+  box-sizing: border-box;
   width: min(100%, 720px);
+  max-width: calc(100vw - 48px);
   overflow: hidden;
   padding: clamp(24px, 4vw, 42px);
   border: 1px solid rgba(0, 245, 255, 0.22);
@@ -2208,13 +2212,14 @@ textarea:focus {
 
   .service-modal {
     align-items: start;
-    padding: 18px 14px;
+    padding: 18px 12px;
   }
 
   .modal-panel {
-    width: 100%;
+    width: min(100%, calc(100vw - 24px));
+    max-width: calc(100vw - 24px);
     margin: 18px 0;
-    padding: 26px 24px 28px;
+    padding: 26px 22px 28px;
     border-radius: 26px;
   }
 
@@ -2429,6 +2434,17 @@ textarea:focus {
 }
 
 @media (max-width: 380px) {
+  .service-modal {
+    padding: 14px 10px;
+  }
+
+  .modal-panel {
+    width: min(100%, calc(100vw - 20px));
+    max-width: calc(100vw - 20px);
+    padding: 24px 18px 26px;
+    border-radius: 24px;
+  }
+
   .service-grid {
     gap: 10px;
   }
