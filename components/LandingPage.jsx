@@ -7,68 +7,68 @@ const services = [
     key: "institucional",
     number: "01",
     title: "Sites institucionais",
-    summary: "Sua empresa clara, séria e fácil de chamar.",
+    summary: "Sua empresa apresentada com clareza e confiança.",
     kicker: "Site institucional",
-    modalTitle: "Para sua empresa parar de parecer improvisada.",
+    modalTitle: "Para sua marca ser entendida e levada a sério.",
     intro:
-      "Quando alguém pesquisa sua marca, precisa entender rápido o que você faz e sentir segurança para chamar. O institucional organiza essa primeira impressão.",
+      "Quando alguém pesquisa sua empresa, precisa entender rápido o que você faz, por que confiar e como falar com você. O site institucional transforma essa primeira impressão em segurança.",
     bullets: [
-      "Mostra serviços, diferenciais e formas de contato sem confusão.",
-      "Ajuda o cliente a confiar antes de pedir orçamento.",
-      "Indicado para empresas, profissionais e negócios locais.",
+      "Apresenta serviços, diferenciais e canais de contato sem confusão.",
+      "Cria uma percepção mais profissional antes do primeiro orçamento.",
+      "Indicado para empresas, profissionais e marcas que precisam ser encontradas.",
     ],
   },
   {
     key: "landing",
     number: "02",
     title: "Landing pages",
-    summary: "Uma oferta clara, sem distração.",
+    summary: "Uma página direta para gerar ação.",
     kicker: "Landing page",
-    modalTitle: "Para transformar atenção em ação.",
+    modalTitle: "Para transformar interesse em contato.",
     intro:
-      "A landing page evita que o visitante se perca. Ela apresenta uma oferta, quebra objeções e conduz para o próximo passo.",
+      "Uma landing page não tenta falar de tudo. Ela apresenta uma oferta com foco, responde dúvidas importantes e conduz o visitante para uma decisão simples.",
     bullets: [
-      "Ideal para tráfego pago, anúncios e campanhas pontuais.",
-      "Texto, design e botões pensados para conversão.",
-      "Boa para campanhas, lançamentos e captação de contatos.",
+      "Boa para anúncios, campanhas, lançamentos e captação de contatos.",
+      "Une copy, design e estrutura para reduzir distrações.",
+      "Ideal quando você quer divulgar uma oferta com mais intenção.",
     ],
   },
   {
     key: "catalogo",
     number: "03",
     title: "Catálogos digitais",
-    summary: "Produtos organizados para vender melhor.",
+    summary: "Produtos e serviços organizados para vender melhor.",
     kicker: "Catálogo digital",
-    modalTitle: "Para o cliente entender antes de perguntar preço.",
+    modalTitle: "Para apresentar suas opções de forma mais profissional.",
     intro:
-      "Quando produtos ficam soltos em mensagens, imagens ou PDF, a decisão demora. O catálogo organiza tudo para o cliente comparar e avançar.",
+      "Quando produtos, pacotes ou serviços ficam espalhados em mensagens, imagens e PDFs, o cliente se perde. O catálogo digital organiza a decisão em uma experiência mais clara.",
     bullets: [
-      "Organiza produtos, linhas, serviços ou pacotes.",
+      "Organiza produtos, linhas, serviços, pacotes ou coleções.",
       "Reduz perguntas repetidas e melhora o atendimento.",
-      "Indicado para lojas, representantes, indústrias e serviços com várias opções.",
+      "Indicado para lojas, representantes, indústrias e negócios com várias opções.",
     ],
   },
   {
     key: "corporativo",
     number: "04",
     title: "Sites corporativos",
-    summary: "Estrutura para crescer sem parecer pequeno.",
+    summary: "Estrutura profissional para marcas em crescimento.",
     kicker: "Site corporativo",
-    modalTitle: "Para marcas que precisam sustentar autoridade.",
+    modalTitle: "Para empresas que precisam transmitir estrutura.",
     intro:
-      "Quando sua empresa cresce, uma página simples pode não explicar tudo. O site corporativo cria estrutura para serviços, áreas, conteúdos e públicos diferentes.",
+      "Quando a empresa cresce, uma página simples já não sustenta toda a comunicação. O site corporativo organiza áreas, serviços, conteúdos e públicos com mais autoridade.",
     bullets: [
       "Pode incluir páginas de serviços, equipe, cases, blog e áreas específicas.",
-      "Passa mais autoridade para empresas em expansão.",
+      "Ajuda a marca a parecer mais preparada, sólida e confiável.",
       "É preparado para crescer junto com a marca.",
     ],
   },
 ];
 
 const processSteps = [
-  ["01", "Entendemos", "Objetivo, público e oferta."],
-  ["02", "Criamos", "Design, copy e código."],
-  ["03", "Publicamos", "Site no ar e métricas prontas."],
+  ["01", "Mapeamos", "Entendemos sua marca, sua necessidade e o melhor formato de site."],
+  ["02", "Construímos", "Criamos layout, mensagem e código com direção própria."],
+  ["03", "Entregamos", "Publicamos o site com performance, métricas e caminho claro."],
 ];
 
 const whatsappHref =
@@ -177,7 +177,7 @@ export default function LandingPage() {
   const [successOpen, setSuccessOpen] = useState(false);
   const [formState, setFormState] = useState({
     sending: false,
-    message: "Respondo pelo contato informado com o melhor caminho para o projeto.",
+    message: "Depois do envio, eu te retorno pelo contato informado com uma sugestão de caminho.",
     error: false,
   });
 
@@ -265,7 +265,7 @@ export default function LandingPage() {
     } catch {
       setFormState({
         sending: false,
-        message: "Não foi possível enviar agora. Tente novamente ou fale por gabriel@synaliz.com.",
+        message: "Envio pausado. Me chama no WhatsApp e conversamos por lá.",
         error: true,
       });
     }
@@ -349,12 +349,15 @@ export default function LandingPage() {
             <p className="eyebrow">Synaliz | Sites sob medida</p>
             <h1>Seu site precisa estar à altura da sua marca.</h1>
             <p className="hero-text">
-              Templates podem até colocar sua empresa online. Mas só um site feito para sua marca
-              explica seu valor, transmite confiança e transforma visitas em contatos.
+              Sua marca tem valor. Seu site precisa comunicar isso antes do primeiro contato.
+              Criamos sites sob medida para transmitir confiança, clareza e profissionalismo desde
+              o primeiro acesso.
             </p>
             <div className="hero-actions">
-              <a className="btn primary" href="#contato">Quero um site profissional</a>
-              <a className="btn secondary" href="#servicos">Ver tipos de site</a>
+              <a className="btn primary" href="#contato">
+                Quero criar meu site sob medida
+              </a>
+              <a className="btn secondary" href="#servicos">Ver opções de site</a>
             </div>
             <div className="hero-stats" aria-label="Resumo dos diferenciais">
               <span><strong>Clareza</strong><small>para explicar sua oferta</small></span>
@@ -410,9 +413,9 @@ export default function LandingPage() {
 
         <section className="section-shell services" id="servicos">
           <div className="section-heading">
-            <p className="eyebrow">Problema resolvido</p>
-            <h2>Seu site precisa explicar, convencer e facilitar o contato.</h2>
-            <p>A Synaliz cria o formato certo para sua marca parar de parecer genérica.</p>
+            <p className="eyebrow">O diferencial</p>
+            <h2>Personalização, velocidade e tecnologia premium.</h2>
+            <p>A Synaliz cria sites sob medida com design próprio, performance alta e ferramentas modernas para sua marca se destacar.</p>
           </div>
           <div className="service-grid">
             {services.map((service) => (
@@ -438,10 +441,10 @@ export default function LandingPage() {
 
         <section className="section-shell process" id="processo">
           <div className="section-heading compact">
-            <p className="eyebrow">Processo simples</p>
+            <p className="eyebrow">Como funciona</p>
             <h2 className="balanced-title">
-              <span>Sua ideia sai do papel</span>
-              <span>e vira presença de destaque.</span>
+              <span>Da necessidade ao site pronto,</span>
+              <span>com direção em cada etapa.</span>
             </h2>
           </div>
           <div className="timeline">
@@ -459,29 +462,29 @@ export default function LandingPage() {
           <div className="contact-card">
             <div>
               <p className="eyebrow">Próximo passo</p>
-              <h2>Quer um site com a cara da sua marca?</h2>
-              <p>Conte sua necessidade. A Synaliz transforma em um caminho claro.</p>
+              <h2>Vamos desenhar o site certo para sua marca?</h2>
+              <p>Conte o que você precisa apresentar. A Synaliz transforma sua necessidade em um projeto claro.</p>
             </div>
             <form className="contact-form" onSubmit={handleContactSubmit}>
               <label>
-                Nome
-                <input type="text" name="nome" placeholder="Seu nome" required />
+                Como posso te chamar?
+                <input type="text" name="nome" placeholder="Seu nome ou nome da empresa" required />
               </label>
               <label>
-                Seu WhatsApp ou Email
-                <input type="text" name="contato" placeholder="Como posso falar com você?" required />
+                Onde eu posso te responder?
+                <input type="text" name="contato" placeholder="WhatsApp ou email" required />
               </label>
               <label>
-                Necessidade
+                O que você precisa?
                 <textarea
                   name="necessidade"
                   rows={4}
-                  placeholder="Ex: preciso apresentar minha empresa, divulgar serviços, organizar produtos ou captar contatos."
+                  placeholder="Ex: quero apresentar minha empresa, organizar produtos ou receber mais contatos."
                   required
                 />
               </label>
               <button className="btn primary" type="submit" disabled={formState.sending}>
-                {formState.sending ? "Enviando..." : "Receber análise"}
+                {formState.sending ? "Enviando..." : "Receber uma sugestão de site"}
               </button>
               <p className={`form-note ${formState.error ? "error" : ""}`} aria-live="polite">
                 {formState.message}
@@ -544,8 +547,8 @@ export default function LandingPage() {
         <div className="footer-grid">
           <div className="footer-brand">
             <Brand className="footer-logo" />
-            <p>Sites sob medida para marcas que não querem parecer genéricas.</p>
-            <p className="footer-mini">Estúdio de desenvolvimento web para empresas, marcas e profissionais.</p>
+            <p>Sites sob medida para empresas que precisam transmitir valor, confiança e clareza desde o primeiro acesso.</p>
+            <p className="footer-mini">Design próprio, performance alta e desenvolvimento com direção técnica.</p>
             <span className="footer-signature">Direção técnica: Gabriel Ramos</span>
           </div>
 
@@ -559,8 +562,8 @@ export default function LandingPage() {
 
           <div className="footer-column">
             <h3>Serviços</h3>
-            <span>Sites institucionais</span>
-            <span>Landing pages</span>
+            <span>Institucionais sob medida</span>
+            <span>Landing pages estratégicas</span>
             <span>Catálogos digitais</span>
             <span>Sites corporativos</span>
           </div>
@@ -569,13 +572,13 @@ export default function LandingPage() {
             <h3>Contato</h3>
             <a href="mailto:gabriel@synaliz.com">gabriel@synaliz.com</a>
             <a href="https://www.synaliz.com" target="_blank" rel="noreferrer">www.synaliz.com</a>
-            <a className="footer-cta" href="#contato">Solicitar proposta</a>
+            <a className="footer-cta" href="#contato">Conversar sobre meu site</a>
           </div>
         </div>
 
         <div className="footer-bottom">
           <span>© 2026 Synaliz. Todos os direitos reservados.</span>
-          <span>Sites com clareza, identidade e intenção comercial.</span>
+          <span>Sua marca com presença própria, rápida e profissional.</span>
         </div>
       </footer>
 
