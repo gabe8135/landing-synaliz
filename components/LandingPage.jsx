@@ -346,16 +346,16 @@ export default function LandingPage() {
       <main>
         <section className="hero section-shell" id="inicio">
           <div className="hero-copy">
-            <p className="eyebrow">Synaliz | Sites sob medida</p>
+            <p className="eyebrow">Synaliz | Sites profissionais</p>
             <h1>Seu site precisa estar à altura da sua marca.</h1>
             <p className="hero-text">
               Sua marca tem valor. Seu site precisa comunicar isso antes do primeiro contato.
-              Criamos sites sob medida para transmitir confiança, clareza e profissionalismo desde
-              o primeiro acesso.
+              Criamos experiências digitais com identidade, clareza e estrutura para gerar confiança
+              desde o primeiro acesso.
             </p>
             <div className="hero-actions">
               <a className="btn primary" href="#contato">
-                Quero criar meu site sob medida
+                Quero um site profissional
               </a>
               <a className="btn secondary" href="#servicos">Ver opções de site</a>
             </div>
@@ -415,7 +415,7 @@ export default function LandingPage() {
           <div className="section-heading">
             <p className="eyebrow">O diferencial</p>
             <h2>Personalização, velocidade e tecnologia premium.</h2>
-            <p>A Synaliz cria sites sob medida com design próprio, performance alta e ferramentas modernas para sua marca se destacar.</p>
+            <p>A Synaliz une design próprio, performance alta e ferramentas modernas para transformar sua marca em uma presença digital mais clara, confiável e memorável.</p>
           </div>
           <div className="service-grid">
             {services.map((service) => (
@@ -547,7 +547,7 @@ export default function LandingPage() {
         <div className="footer-grid">
           <div className="footer-brand">
             <Brand className="footer-logo" />
-            <p>Sites sob medida para empresas que precisam transmitir valor, confiança e clareza desde o primeiro acesso.</p>
+            <p>Sites profissionais para empresas que precisam apresentar valor, transmitir confiança e facilitar o contato.</p>
             <p className="footer-mini">Design próprio, performance alta e desenvolvimento com direção técnica.</p>
             <span className="footer-signature">Direção técnica: Gabriel Ramos</span>
           </div>
@@ -562,7 +562,7 @@ export default function LandingPage() {
 
           <div className="footer-column">
             <h3>Serviços</h3>
-            <span>Institucionais sob medida</span>
+            <span>Institucionais profissionais</span>
             <span>Landing pages estratégicas</span>
             <span>Catálogos digitais</span>
             <span>Sites corporativos</span>

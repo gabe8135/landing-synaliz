@@ -22,7 +22,7 @@ const saira = Saira({
 export const metadata = {
   title: "Synaliz | Sites profissionais para empresas",
   description:
-    "Sites sob medida para empresas que precisam comunicar valor, transmitir confiança e receber contatos com mais clareza.",
+    "Sites profissionais para empresas que precisam comunicar valor, transmitir confiança e receber contatos com mais clareza.",
   icons: {
     icon: [
       { url: "/assets/favicon.ico", sizes: "any" },
