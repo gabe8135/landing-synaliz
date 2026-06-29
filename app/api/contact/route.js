@@ -31,19 +31,25 @@ export async function POST(request) {
   }
 
   const nome = clean(body.nome);
-  const contato = clean(body.contato);
-  const necessidade = clean(body.necessidade || body.projeto);
+  const empresa = clean(body.empresa);
+  const whatsapp = clean(body.whatsapp || body.contato);
+  const tipoProjeto = clean(body.tipoProjeto);
+  const orcamento = clean(body.orcamento);
+  const mensagem = clean(body.mensagem || body.necessidade || body.projeto);
 
-  if (!nome || !contato || !necessidade) {
-    return NextResponse.json({ error: "Preencha nome, contato e necessidade." }, { status: 400 });
+  if (!nome || !whatsapp || !tipoProjeto || !orcamento || !mensagem) {
+    return NextResponse.json({ error: "Preencha os campos obrigatorios." }, { status: 400 });
   }
 
   const from = process.env.RESEND_FROM || "Synaliz <onboarding@resend.dev>";
   const to = process.env.CONTACT_TO_EMAIL || DEFAULT_TO_EMAIL;
   const nomeHtml = escapeHtml(nome);
-  const contatoHtml = escapeHtml(contato);
-  const necessidadeHtml = escapeHtml(necessidade).replace(/\n/g, "<br>");
-  const previewText = clean(necessidade).slice(0, 120);
+  const empresaHtml = escapeHtml(empresa || "Não informado");
+  const whatsappHtml = escapeHtml(whatsapp);
+  const tipoProjetoHtml = escapeHtml(tipoProjeto);
+  const orcamentoHtml = escapeHtml(orcamento);
+  const mensagemHtml = escapeHtml(mensagem).replace(/\n/g, "<br>");
+  const previewText = clean(mensagem).slice(0, 120);
 
   const resendResponse = await fetch(RESEND_ENDPOINT, {
     method: "POST",
@@ -54,15 +60,18 @@ export async function POST(request) {
     body: JSON.stringify({
       from,
       to: [to],
-      subject: `Novo contato Synaliz: ${nome}`,
+      subject: `Diagnóstico Synaliz: ${nome}`,
       text: [
-        "Novo contato pelo site da Synaliz",
+        "Novo diagnóstico solicitado pelo site da Synaliz",
         "",
         `Nome: ${nome}`,
-        `Contato: ${contato}`,
+        `Empresa: ${empresa || "Não informado"}`,
+        `WhatsApp: ${whatsapp}`,
+        `Tipo de projeto: ${tipoProjeto}`,
+        `Orçamento aproximado: ${orcamento}`,
         "",
-        "Necessidade:",
-        necessidade,
+        "Mensagem:",
+        mensagem,
       ].join("\n"),
       html: `
         <div style="margin:0;padding:0;background:#07111b;">
@@ -72,8 +81,8 @@ export async function POST(request) {
                 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;border:1px solid rgba(0,245,255,.22);border-radius:24px;overflow:hidden;background:#0d1b28;color:#f4f6f8;font-family:Arial,Helvetica,sans-serif;">
                   <tr>
                     <td style="padding:28px 28px 18px;background:linear-gradient(135deg,#0f2a3d,#07111b);">
-                      <p style="margin:0 0 10px;color:#00f5ff;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Synaliz | Novo contato</p>
-                      <h1 style="margin:0;color:#ffffff;font-size:28px;line-height:1.08;">Alguém quer conversar sobre um site.</h1>
+                      <p style="margin:0 0 10px;color:#00f5ff;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Synaliz | Diagnóstico solicitado</p>
+                      <h1 style="margin:0;color:#ffffff;font-size:28px;line-height:1.08;">Novo possível projeto chegou pelo site.</h1>
                     </td>
                   </tr>
                   <tr>
@@ -88,8 +97,22 @@ export async function POST(request) {
                         <tr><td height="10"></td></tr>
                         <tr>
                           <td style="padding:14px 16px;border:1px solid rgba(184,202,212,.18);border-radius:16px;background:rgba(255,255,255,.045);">
-                            <p style="margin:0 0 4px;color:#b8cad4;font-size:12px;text-transform:uppercase;letter-spacing:1.2px;">Contato</p>
-                            <p style="margin:0;color:#ffffff;font-size:18px;font-weight:700;">${contatoHtml}</p>
+                            <p style="margin:0 0 4px;color:#b8cad4;font-size:12px;text-transform:uppercase;letter-spacing:1.2px;">Empresa</p>
+                            <p style="margin:0;color:#ffffff;font-size:18px;font-weight:700;">${empresaHtml}</p>
+                          </td>
+                        </tr>
+                        <tr><td height="10"></td></tr>
+                        <tr>
+                          <td style="padding:14px 16px;border:1px solid rgba(184,202,212,.18);border-radius:16px;background:rgba(255,255,255,.045);">
+                            <p style="margin:0 0 4px;color:#b8cad4;font-size:12px;text-transform:uppercase;letter-spacing:1.2px;">WhatsApp</p>
+                            <p style="margin:0;color:#ffffff;font-size:18px;font-weight:700;">${whatsappHtml}</p>
+                          </td>
+                        </tr>
+                        <tr><td height="10"></td></tr>
+                        <tr>
+                          <td style="padding:14px 16px;border:1px solid rgba(184,202,212,.18);border-radius:16px;background:rgba(255,255,255,.045);">
+                            <p style="margin:0 0 4px;color:#b8cad4;font-size:12px;text-transform:uppercase;letter-spacing:1.2px;">Projeto e orçamento</p>
+                            <p style="margin:0;color:#ffffff;font-size:18px;font-weight:700;">${tipoProjetoHtml} · ${orcamentoHtml}</p>
                           </td>
                         </tr>
                       </table>
@@ -98,8 +121,8 @@ export async function POST(request) {
                   <tr>
                     <td style="padding:10px 28px 28px;">
                       <div style="padding:18px;border-radius:18px;background:rgba(0,245,255,.08);border:1px solid rgba(0,245,255,.24);">
-                        <p style="margin:0 0 8px;color:#00f5ff;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.4px;">Necessidade do cliente</p>
-                        <p style="margin:0;color:#f4f6f8;font-size:17px;line-height:1.65;">${necessidadeHtml}</p>
+                        <p style="margin:0 0 8px;color:#00f5ff;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.4px;">Mensagem do cliente</p>
+                        <p style="margin:0;color:#f4f6f8;font-size:17px;line-height:1.65;">${mensagemHtml}</p>
                       </div>
                     </td>
                   </tr>

@@ -7,7 +7,9 @@ const services = [
     key: "institucional",
     number: "01",
     title: "Sites institucionais",
-    summary: "Sua empresa apresentada com clareza e confiança.",
+    summary: "Presença profissional para explicar sua empresa e gerar confiança.",
+    benefit: "Autoridade",
+    cta: "Quero um site institucional",
     kicker: "Site institucional",
     modalTitle: "Para sua marca ser entendida e levada a sério.",
     intro:
@@ -22,7 +24,9 @@ const services = [
     key: "landing",
     number: "02",
     title: "Landing pages",
-    summary: "Uma página direta para gerar ação.",
+    summary: "Páginas focadas em campanhas, anúncios e captação de leads.",
+    benefit: "Conversão",
+    cta: "Quero uma página que converte",
     kicker: "Landing page",
     modalTitle: "Para transformar interesse em contato.",
     intro:
@@ -37,7 +41,9 @@ const services = [
     key: "catalogo",
     number: "03",
     title: "Catálogos digitais",
-    summary: "Produtos e serviços organizados para vender melhor.",
+    summary: "Produtos e serviços organizados para facilitar a decisão.",
+    benefit: "Clareza",
+    cta: "Quero organizar meu catálogo",
     kicker: "Catálogo digital",
     modalTitle: "Para apresentar suas opções de forma mais profissional.",
     intro:
@@ -52,7 +58,9 @@ const services = [
     key: "corporativo",
     number: "04",
     title: "Sites corporativos",
-    summary: "Estrutura profissional para marcas em crescimento.",
+    summary: "Estrutura para marcas que precisam crescer com mais presença.",
+    benefit: "Crescimento",
+    cta: "Quero estrutura profissional",
     kicker: "Site corporativo",
     modalTitle: "Para empresas que precisam transmitir estrutura.",
     intro:
@@ -63,16 +71,195 @@ const services = [
       "É preparado para crescer junto com a marca.",
     ],
   },
+  {
+    key: "local",
+    number: "05",
+    title: "Sites para empresas locais",
+    summary: "Presença clara para negócios que querem ser encontrados e chamados.",
+    benefit: "Busca local",
+    cta: "Quero aparecer melhor",
+    kicker: "Empresa local",
+    modalTitle: "Para transformar pesquisa em contato.",
+    intro:
+      "Seu cliente pode procurar no Google, no Instagram ou receber uma indicação. O site ajuda a centralizar informações, transmitir confiança e facilitar o contato.",
+    bullets: [
+      "Organiza serviços, localização, diferenciais e canais de atendimento.",
+      "Ajuda sua empresa a parecer mais preparada antes da primeira conversa.",
+      "Indicado para prestadores de serviço, lojas, clínicas e negócios regionais.",
+    ],
+  },
+  {
+    key: "evolucao",
+    number: "06",
+    title: "Manutenção e evolução web",
+    summary: "Ajustes, melhorias e novas páginas para o site continuar evoluindo.",
+    benefit: "Continuidade",
+    cta: "Quero evoluir meu site",
+    kicker: "Evolução web",
+    modalTitle: "Para seu site continuar acompanhando sua marca.",
+    intro:
+      "Depois que o site está no ar, novas ofertas, campanhas e melhorias aparecem. A evolução web mantém sua presença digital viva, atualizada e tecnicamente saudável.",
+    bullets: [
+      "Atualizações de conteúdo, páginas, integrações e ajustes visuais.",
+      "Melhorias contínuas de performance, SEO e experiência do usuário.",
+      "Indicado para empresas que não querem deixar o site parado.",
+    ],
+  },
 ];
 
 const processSteps = [
-  ["01", "Mapeamos", "Entendemos sua marca, sua necessidade e o melhor formato de site."],
-  ["02", "Construímos", "Criamos layout, mensagem e código com direção própria."],
-  ["03", "Entregamos", "Publicamos o site com performance, métricas e caminho claro."],
+  ["01", "Diagnóstico", "Marca, oferta, público e objetivos."],
+  ["02", "Estratégia", "Estrutura, mensagem, SEO e conversão."],
+  ["03", "Design", "Interface clara, premium e responsiva."],
+  ["04", "Desenvolvimento", "Performance, acessibilidade e boas práticas."],
+  ["05", "Lançamento", "Publicação, rastreamento e revisão final."],
+  ["06", "Evolução", "Melhorias, manutenção e novas oportunidades."],
+];
+
+const trustItems = [
+  "Estúdio web",
+  "Sites sob medida",
+  "Alta performance",
+  "SEO técnico",
+  "Layout responsivo",
+  "Estratégia de conversão",
+  "Suporte humano",
+];
+
+const studioPillars = [
+  ["Design", "interface com identidade, hierarquia e acabamento premium"],
+  ["Código", "desenvolvimento moderno, rápido e preparado para crescer"],
+  ["Estratégia", "mensagem clara, SEO técnico e jornada para contato"],
+];
+
+const problems = [
+  ["Visual genérico", "A marca parece menor do que realmente é."],
+  ["Mensagem confusa", "O visitante não entende valor, serviço ou próximo passo."],
+  ["Pouca confiança", "A primeira impressão não sustenta uma conversa comercial."],
+  ["Base fraca", "Site lento, sem SEO e difícil de evoluir com segurança."],
+];
+
+const solutions = [
+  ["Clareza", "para explicar sua oferta"],
+  ["Design", "para valorizar sua marca"],
+  ["Performance", "para melhorar a experiência"],
+  ["SEO", "para fortalecer presença orgânica"],
+  ["Conversão", "para gerar contatos qualificados"],
+];
+
+const differentials = [
+  "Design próprio, sem aparência de template",
+  "Desenvolvimento moderno com Next.js e Vercel",
+  "Estrutura pensada para SEO e performance",
+  "Copy objetiva para aumentar clareza",
+  "Layout responsivo e mobile first",
+  "Integrações com WhatsApp, formulários e rastreamento",
+  "Atendimento próximo e estratégico",
+  "Visão de marca, não apenas execução técnica",
+];
+
+const comparisonRows = [
+  ["Visual genérico", "Design com identidade"],
+  ["Sem estratégia", "Estrutura orientada por objetivos"],
+  ["Sem SEO", "SEO técnico desde a base"],
+  ["Sem rastreamento", "Eventos e métricas preparados"],
+  ["Apenas entrega", "Evolução e suporte"],
+  ["Texto confuso", "Copy clara e objetiva"],
+];
+
+const performanceItems = [
+  "SEO técnico",
+  "Core Web Vitals",
+  "Metadados",
+  "Estrutura semântica",
+  "Open Graph",
+  "Analytics e eventos",
+];
+
+const faqs = [
+  [
+    "Quanto custa criar um site profissional?",
+    "Depende do formato, quantidade de páginas, nível de design, integrações e estratégia. O primeiro passo é entender sua necessidade para indicar o caminho certo.",
+  ],
+  [
+    "Qual a diferença entre site institucional e landing page?",
+    "O site institucional apresenta a empresa de forma ampla. A landing page foca uma oferta, campanha ou ação específica.",
+  ],
+  [
+    "Um site pode ajudar minha empresa a conseguir mais clientes?",
+    "Sim, quando comunica valor com clareza, carrega rápido, facilita o contato e está preparado para busca e conversão.",
+  ],
+  [
+    "A Synaliz cria sites com SEO?",
+    "Sim. A estrutura já nasce com hierarquia, metadados, performance, responsividade e base técnica para ferramentas de busca.",
+  ],
+  [
+    "O site será responsivo?",
+    "Sim. A experiência é pensada para desktop, tablet e celular, com prioridade para leitura rápida e contato fácil.",
+  ],
+  [
+    "Vocês usam templates prontos?",
+    "Não trabalhamos com aparência genérica. A estrutura visual e a mensagem são pensadas para a marca e o objetivo do projeto.",
+  ],
+  [
+    "É possível integrar WhatsApp, formulários e pixels?",
+    "Sim. Podemos preparar WhatsApp, formulários, Analytics, Tag Manager, pixels e eventos de conversão.",
+  ],
+  [
+    "A Synaliz atende outras cidades ou países?",
+    "Sim. O processo é remoto, claro e preparado para empresas no Brasil e no exterior.",
+  ],
 ];
 
 const whatsappHref =
   "https://wa.me/5513996481133?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Synaliz%20e%20quero%20conversar%20sobre%20um%20site.";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://lpsynaliz.vercel.app/#organization",
+      name: "Synaliz",
+      url: "https://lpsynaliz.vercel.app/",
+      logo: "https://lpsynaliz.vercel.app/assets/synaliz-logo-oficial.svg",
+      email: "gabriel@synaliz.com",
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://lpsynaliz.vercel.app/#professional-service",
+      name: "Synaliz",
+      url: "https://lpsynaliz.vercel.app/",
+      areaServed: ["BR", "Worldwide"],
+      serviceType: ["Criação de sites", "Landing pages", "UX/UI design", "Desenvolvimento web"],
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://lpsynaliz.vercel.app/#website",
+      name: "Synaliz",
+      url: "https://lpsynaliz.vercel.app/",
+      publisher: { "@id": "https://lpsynaliz.vercel.app/#organization" },
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://lpsynaliz.vercel.app/#faq",
+      mainEntity: faqs.map(([question, answer]) => ({
+        "@type": "Question",
+        name: question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: answer,
+        },
+      })),
+    },
+  ],
+};
+
+function trackEvent(name, params = {}) {
+  if (typeof window === "undefined") return;
+  window.dataLayer?.push({ event: name, ...params });
+  window.gtag?.("event", name, params);
+}
 
 function WhatsAppIcon() {
   return (
@@ -172,8 +359,11 @@ function SignalField() {
 
 export default function LandingPage() {
   const heroFrameRef = useRef(null);
+  const processSectionRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
+  const [processProgress, setProcessProgress] = useState(0);
+  const [activeProcessStep, setActiveProcessStep] = useState(0);
   const [successOpen, setSuccessOpen] = useState(false);
   const [formState, setFormState] = useState({
     sending: false,
@@ -189,6 +379,39 @@ export default function LandingPage() {
   }, [anyModalOpen]);
 
   useEffect(() => {
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return undefined;
+
+    const moveCursor = (event) => {
+      document.documentElement.style.setProperty("--cursor-x", `${event.clientX}px`);
+      document.documentElement.style.setProperty("--cursor-y", `${event.clientY}px`);
+      document.body.classList.add("custom-cursor-active");
+    };
+
+    const updateHoverState = (event) => {
+      const target = event.target;
+      const isInteractive = target.closest?.("a, button, input, select, textarea, [role='button'], summary");
+      document.body.classList.toggle("custom-cursor-hover", Boolean(isInteractive));
+    };
+
+    const hideCursor = () => {
+      document.body.classList.remove("custom-cursor-active", "custom-cursor-hover");
+    };
+
+    window.addEventListener("pointermove", moveCursor);
+    window.addEventListener("pointerover", updateHoverState);
+    window.addEventListener("pointerout", updateHoverState);
+    document.addEventListener("mouseleave", hideCursor);
+
+    return () => {
+      window.removeEventListener("pointermove", moveCursor);
+      window.removeEventListener("pointerover", updateHoverState);
+      window.removeEventListener("pointerout", updateHoverState);
+      document.removeEventListener("mouseleave", hideCursor);
+      document.body.classList.remove("custom-cursor-active", "custom-cursor-hover");
+    };
+  }, []);
+
+  useEffect(() => {
     const onKeyDown = (event) => {
       if (event.key !== "Escape") return;
       setMenuOpen(false);
@@ -202,7 +425,7 @@ export default function LandingPage() {
 
   useEffect(() => {
     const animatedItems = document.querySelectorAll(
-      ".section-heading, .service-grid article, .timeline article, .contact-card"
+      ".section-heading, .service-grid article, .contact-card"
     );
 
     if (!("IntersectionObserver" in window)) {
@@ -239,12 +462,54 @@ export default function LandingPage() {
     return () => revealObserver.disconnect();
   }, []);
 
+  useEffect(() => {
+    const section = processSectionRef.current;
+    if (!section) return undefined;
+
+    let frameId = 0;
+
+    const updateActiveStep = () => {
+      const rect = section.getBoundingClientRect();
+      const viewportHeight = Math.max(window.innerHeight || 1, 1);
+      const scrollableDistance = rect.height - viewportHeight;
+
+      if (scrollableDistance <= 0) {
+        setProcessProgress(0);
+        setActiveProcessStep(0);
+        return;
+      }
+
+      const progress = Math.min(Math.max(-rect.top / scrollableDistance, 0), 1);
+      const stepFloat = progress * (processSteps.length - 1);
+      const nextStep = Math.min(processSteps.length - 1, Math.round(stepFloat));
+
+      setProcessProgress(progress);
+      setActiveProcessStep((current) => (current === nextStep ? current : nextStep));
+    };
+
+    const scheduleUpdate = () => {
+      cancelAnimationFrame(frameId);
+      frameId = requestAnimationFrame(updateActiveStep);
+    };
+
+    updateActiveStep();
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+    };
+  }, []);
+
   async function handleContactSubmit(event) {
     event.preventDefault();
     const form = event.currentTarget;
     const data = new FormData(form);
 
     setFormState({ sending: true, message: "Enviando sua mensagem...", error: false });
+    trackEvent("submit_form", { form_name: "diagnostico" });
 
     try {
       const response = await fetch("/api/contact", {
@@ -252,8 +517,11 @@ export default function LandingPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           nome: data.get("nome") || "",
-          contato: data.get("contato") || "",
-          necessidade: data.get("necessidade") || "",
+          empresa: data.get("empresa") || "",
+          whatsapp: data.get("whatsapp") || "",
+          tipoProjeto: data.get("tipoProjeto") || "",
+          orcamento: data.get("orcamento") || "",
+          mensagem: data.get("mensagem") || "",
         }),
       });
 
@@ -311,18 +579,28 @@ export default function LandingPage() {
     frame.dataset.tiltY = "-13";
   }
 
+  const processStepFloat = processProgress * (processSteps.length - 1);
+
   return (
     <>
       <SignalField />
+      <div className="custom-cursor" aria-hidden="true">
+        <span className="custom-cursor-ring" />
+        <span className="custom-cursor-dot" />
+      </div>
 
       <header className="site-header">
         <Brand />
         <nav className="desktop-nav" aria-label="Navegação principal">
+          <a href="#sobre">Sobre</a>
           <a href="#servicos">Serviços</a>
-          <a href="#processo">Processo</a>
+          <a href="#solucao">Soluções</a>
+          <a href="#metodo">Método</a>
           <a href="#contato">Contato</a>
         </nav>
-        <a className="header-cta" href="#contato">Solicitar proposta</a>
+        <a className="header-cta" href="#contato" onClick={() => trackEvent("click_diagnostico", { location: "header" })}>
+          Solicitar diagnóstico
+        </a>
         <button
           className={`menu-toggle ${menuOpen ? "is-open" : ""}`}
           type="button"
@@ -336,33 +614,44 @@ export default function LandingPage() {
       </header>
 
       <nav className={`mobile-nav ${menuOpen ? "open" : ""}`} aria-label="Navegação mobile">
-        {["servicos", "processo", "contato"].map((item) => (
+        {[
+          ["sobre", "Sobre"],
+          ["servicos", "Serviços"],
+          ["solucao", "Soluções"],
+          ["metodo", "Método"],
+          ["contato", "Contato"],
+        ].map(([item, label]) => (
           <a key={item} href={`#${item}`} onClick={() => setMenuOpen(false)}>
-            {item === "servicos" ? "Serviços" : item === "processo" ? "Processo" : "Contato"}
+            {label}
           </a>
         ))}
       </nav>
 
       <main>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <section className="hero section-shell" id="inicio">
           <div className="hero-copy">
-            <p className="eyebrow">Synaliz | Sites profissionais</p>
-            <h1>Seu site precisa estar à altura da sua marca.</h1>
+            <p className="eyebrow">Synaliz | estúdio de design e desenvolvimento web</p>
+            <h1>Sua marca tem valor. Seu site precisa mostrar isso.</h1>
             <p className="hero-text">
-              Sua marca tem valor. Seu site precisa comunicar isso antes do primeiro contato.
-              Criamos experiências digitais com identidade, clareza e estrutura para gerar confiança
-              desde o primeiro acesso.
+              A Synaliz une design, desenvolvimento, SEO e estratégia para transformar sua marca
+              em um site claro, rápido e memorável.
             </p>
             <div className="hero-actions">
-              <a className="btn primary" href="#contato">
-                Quero um site profissional
+              <a className="btn primary" href="#contato" onClick={() => trackEvent("click_diagnostico", { location: "hero" })}>
+                Solicitar diagnóstico
               </a>
-              <a className="btn secondary" href="#servicos">Ver opções de site</a>
+              <a className="btn secondary" href="#sobre" onClick={() => trackEvent("view_services", { location: "hero" })}>
+                Conhecer a Synaliz
+              </a>
             </div>
             <div className="hero-stats" aria-label="Resumo dos diferenciais">
-              <span><strong>Clareza</strong><small>para explicar sua oferta</small></span>
-              <span><strong>Confiança</strong><small>para parecer profissional</small></span>
-              <span><strong>Contato</strong><small>para gerar oportunidades</small></span>
+              <span><strong>UX/UI</strong><small>para leitura rápida</small></span>
+              <span><strong>SEO</strong><small>base técnica preparada</small></span>
+              <span><strong>CRO</strong><small>jornada orientada a contato</small></span>
             </div>
           </div>
 
@@ -411,11 +700,74 @@ export default function LandingPage() {
           </div>
         </section>
 
+        <section className="trust-strip section-shell" aria-label="Diferenciais rápidos">
+          {trustItems.map((item) => (
+            <span key={item}>{item}</span>
+          ))}
+        </section>
+
+        <section className="section-shell about" id="sobre">
+          <div className="section-heading">
+            <p className="eyebrow">Sobre a Synaliz</p>
+            <h2>Um estúdio web para empresas que querem parecer profissionais de verdade.</h2>
+            <p>Atuamos entre design, tecnologia e estratégia para criar sites com identidade própria, leitura rápida e base técnica profissional.</p>
+          </div>
+          <div className="about-panel">
+            <div className="about-copy">
+              <span>O que fazemos</span>
+              <h3>Transformamos empresas, serviços e ofertas em experiências digitais claras.</h3>
+              <p>
+                Cada projeto nasce sob medida: entendemos a marca, organizamos a mensagem, desenhamos a experiência e desenvolvemos uma estrutura rápida, responsiva e preparada para evolução.
+              </p>
+            </div>
+            <div className="about-pills" aria-label="Pilares da Synaliz">
+              {studioPillars.map(([title, text]) => (
+                <article key={title}>
+                  <strong>{title}</strong>
+                  <span>{text}</span>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section-shell problem" id="problema">
+          <div className="section-heading">
+            <p className="eyebrow">O problema</p>
+            <h2>Presença digital genérica diminui a percepção de valor.</h2>
+            <p>Se sua marca é boa, o site precisa deixar isso claro antes da primeira conversa.</p>
+          </div>
+          <div className="insight-grid">
+            {problems.map(([title, text]) => (
+              <article key={title}>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="section-shell solution" id="solucao">
+          <div className="section-heading">
+            <p className="eyebrow">A solução</p>
+            <h2>Transformamos valor de marca em experiência digital clara.</h2>
+            <p>Design chama atenção. Estratégia, velocidade e mensagem certa sustentam a confiança.</p>
+          </div>
+          <div className="solution-grid">
+            {solutions.map(([title, text]) => (
+              <article key={title}>
+                <strong>{title}</strong>
+                <span>{text}</span>
+              </article>
+            ))}
+          </div>
+        </section>
+
         <section className="section-shell services" id="servicos">
           <div className="section-heading">
-            <p className="eyebrow">O diferencial</p>
-            <h2>Personalização, velocidade e tecnologia premium.</h2>
-            <p>A Synaliz une design próprio, performance alta e ferramentas modernas para transformar sua marca em uma presença digital mais clara, confiável e memorável.</p>
+            <p className="eyebrow">Serviços</p>
+            <h2>O que a Synaliz desenvolve para sua empresa.</h2>
+            <p>Sites, páginas e estruturas digitais para apresentar melhor sua marca, seus serviços e suas oportunidades.</p>
           </div>
           <div className="service-grid">
             {services.map((service) => (
@@ -434,26 +786,144 @@ export default function LandingPage() {
                 <span className="icon">{service.number}</span>
                 <h3>{service.title}</h3>
                 <p>{service.summary}</p>
+                <small>{service.benefit}</small>
               </article>
             ))}
           </div>
         </section>
 
-        <section className="section-shell process" id="processo">
+        <section className="section-shell differentials" id="diferenciais">
           <div className="section-heading compact">
-            <p className="eyebrow">Como funciona</p>
+            <p className="eyebrow">Diferenciais</p>
+            <h2>Por que escolher a Synaliz?</h2>
+          </div>
+          <div className="feature-list">
+            {differentials.map((item) => (
+              <span key={item}>{item}</span>
+            ))}
+          </div>
+        </section>
+
+        <section className="section-shell process" id="metodo">
+          <div className="section-heading compact">
+            <p className="eyebrow">Método Synaliz</p>
             <h2 className="balanced-title">
-              <span>Da necessidade ao site pronto,</span>
+              <span>Da estratégia ao site no ar,</span>
               <span>com direção em cada etapa.</span>
             </h2>
           </div>
-          <div className="timeline">
-            {processSteps.map(([number, title, text]) => (
-              <article key={number}>
-                <span>{number}</span>
-                <h3>{title}</h3>
-                <p>{text}</p>
-              </article>
+          <div className="method-stage" ref={processSectionRef}>
+            <div className="method-sticky" aria-live="polite">
+              <div className="method-stack" role="region" aria-label="Etapas do Método Synaliz">
+                {processSteps.map(([number, title, text], index) => {
+                  const distance = index - processStepFloat;
+                  const absDistance = Math.abs(distance);
+                  const opacity = Math.max(0, 1 - absDistance * 1.06);
+                  const translateY = distance * 46;
+                  const scale = 1 - Math.min(absDistance * 0.08, 0.18);
+                  const blur = Math.min(absDistance * 2.4, 6);
+                  const panelClass = activeProcessStep === index ? "method-panel is-active" : "method-panel";
+
+                  return (
+                    <article
+                      className={panelClass}
+                      key={number}
+                      aria-hidden={opacity < 0.15}
+                      style={{
+                        opacity,
+                        transform: `translate3d(0, ${translateY}px, 0) scale(${scale})`,
+                        filter: `blur(${blur}px)`,
+                        zIndex: Math.round((1 - Math.min(absDistance, 1.8) / 1.8) * 100),
+                      }}
+                    >
+                      <span>{number}</span>
+                      <h3>{title}</h3>
+                      <p>{text}</p>
+                    </article>
+                  );
+                })}
+              </div>
+              <div className="method-progress" aria-hidden="true">
+                {processSteps.map(([number], index) => (
+                  <span className={activeProcessStep === index ? "is-active" : ""} key={number} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="section-shell portfolio" id="portfolio">
+          <div className="section-heading">
+            <p className="eyebrow">Portfólio em construção</p>
+            <h2>Cases certos valem mais do que preencher espaço.</h2>
+            <p>Esta área será reservada para projetos que realmente representem o padrão visual, técnico e estratégico da Synaliz.</p>
+          </div>
+          <article className="case-card case-card-empty">
+            <div>
+              <span>Critério antes de volume</span>
+              <h3>Projetos selecionados, sem vitrine genérica.</h3>
+              <p>Em breve, a Synaliz vai destacar trabalhos com contexto, desafio, solução e qualidade real de entrega.</p>
+            </div>
+            <a className="btn secondary" href="https://www.synaliz.com" target="_blank" rel="noreferrer" onClick={() => trackEvent("view_portfolio")}>
+              Ver site atual
+            </a>
+          </article>
+        </section>
+
+        <section className="section-shell comparison" id="comparacao">
+          <div className="section-heading compact">
+            <p className="eyebrow">Comparação</p>
+            <h2>Mais do que um site bonito.</h2>
+          </div>
+          <div className="comparison-table" role="table" aria-label="Comparação entre site comum e Synaliz">
+            <div role="row" className="comparison-head">
+              <span role="columnheader">Site comum</span>
+              <span role="columnheader">Synaliz</span>
+            </div>
+            {comparisonRows.map(([common, synaliz]) => (
+              <div role="row" key={common}>
+                <span role="cell">{common}</span>
+                <strong role="cell">{synaliz}</strong>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="section-shell performance" id="performance">
+          <div className="section-heading">
+            <p className="eyebrow">SEO e performance</p>
+            <h2>Preparado para busca, velocidade e crescimento.</h2>
+            <p>Criamos sites com estrutura técnica limpa, carregamento rápido, hierarquia correta, metadados e base preparada para rastreamento.</p>
+          </div>
+          <div className="tech-grid">
+            {performanceItems.map((item) => (
+              <span key={item}>{item}</span>
+            ))}
+          </div>
+        </section>
+
+        <section className="section-shell international" id="internacional">
+          <div className="section-heading">
+            <p className="eyebrow">Brasil e exterior</p>
+            <h2>Projetos digitais para empresas no Brasil e no mundo.</h2>
+            <p>Atuação remota, processo claro e entrega profissional para marcas que precisam de presença digital estratégica.</p>
+            <a className="btn secondary" href="#contato" onClick={() => trackEvent("click_start_project")}>
+              Start a project
+            </a>
+          </div>
+        </section>
+
+        <section className="section-shell faq" id="faq">
+          <div className="section-heading">
+            <p className="eyebrow">FAQ</p>
+            <h2>Perguntas rápidas antes de começar.</h2>
+          </div>
+          <div className="faq-grid">
+            {faqs.map(([question, answer]) => (
+              <details key={question}>
+                <summary>{question}</summary>
+                <p>{answer}</p>
+              </details>
             ))}
           </div>
         </section>
@@ -461,30 +931,56 @@ export default function LandingPage() {
         <section className="section-shell contact" id="contato">
           <div className="contact-card">
             <div>
-              <p className="eyebrow">Próximo passo</p>
-              <h2>Vamos desenhar o site certo para sua marca?</h2>
-              <p>Conte o que você precisa apresentar. A Synaliz transforma sua necessidade em um projeto claro.</p>
+              <p className="eyebrow">Diagnóstico</p>
+              <h2>Vamos transformar seu site em um ativo de crescimento?</h2>
+              <p>Receba uma análise inicial para melhorar sua presença digital com mais clareza, autoridade e conversão.</p>
             </div>
             <form className="contact-form" onSubmit={handleContactSubmit}>
               <label>
                 Como posso te chamar?
-                <input type="text" name="nome" placeholder="Seu nome ou nome da empresa" required />
+                <input type="text" name="nome" placeholder="Seu nome" required />
               </label>
               <label>
-                Onde eu posso te responder?
-                <input type="text" name="contato" placeholder="WhatsApp ou email" required />
+                Empresa
+                <input type="text" name="empresa" placeholder="Nome da empresa ou marca" />
               </label>
               <label>
-                O que você precisa?
+                WhatsApp
+                <input type="tel" name="whatsapp" placeholder="Seu melhor número" required />
+              </label>
+              <label>
+                Tipo de projeto
+                <select name="tipoProjeto" required defaultValue="">
+                  <option value="" disabled>Escolha uma opção</option>
+                  <option>Site institucional</option>
+                  <option>Landing page</option>
+                  <option>Catálogo digital</option>
+                  <option>Redesign</option>
+                  <option>Manutenção</option>
+                  <option>Outro</option>
+                </select>
+              </label>
+              <label>
+                Orçamento aproximado
+                <select name="orcamento" required defaultValue="">
+                  <option value="" disabled>Escolha uma faixa</option>
+                  <option>Até R$ 1.500</option>
+                  <option>R$ 1.500 a R$ 3.000</option>
+                  <option>R$ 3.000 a R$ 6.000</option>
+                  <option>Acima de R$ 6.000</option>
+                </select>
+              </label>
+              <label>
+                Mensagem
                 <textarea
-                  name="necessidade"
+                  name="mensagem"
                   rows={4}
-                  placeholder="Ex: quero apresentar minha empresa, organizar produtos ou receber mais contatos."
+                  placeholder="Conte o que sua empresa precisa melhorar no digital."
                   required
                 />
               </label>
               <button className="btn primary" type="submit" disabled={formState.sending}>
-                {formState.sending ? "Enviando..." : "Receber uma sugestão de site"}
+                {formState.sending ? "Enviando..." : "Solicitar diagnóstico"}
               </button>
               <p className={`form-note ${formState.error ? "error" : ""}`} aria-live="polite">
                 {formState.message}
@@ -516,7 +1012,7 @@ export default function LandingPage() {
               ))}
             </div>
             <a className="btn primary modal-cta" href="#contato" onClick={() => setSelectedService(null)}>
-              Quero conversar sobre isso
+              {selectedService.cta}
             </a>
           </div>
         </div>
@@ -555,8 +1051,11 @@ export default function LandingPage() {
           <div className="footer-column">
             <h3>Navegação</h3>
             <a href="#inicio">Início</a>
+            <a href="#sobre">Sobre</a>
             <a href="#servicos">Serviços</a>
-            <a href="#processo">Processo</a>
+            <a href="#solucao">Soluções</a>
+            <a href="#metodo">Método</a>
+            <a href="#portfolio">Portfólio</a>
             <a href="#contato">Contato</a>
           </div>
 
@@ -572,17 +1071,19 @@ export default function LandingPage() {
             <h3>Contato</h3>
             <a href="mailto:gabriel@synaliz.com">gabriel@synaliz.com</a>
             <a href="https://www.synaliz.com" target="_blank" rel="noreferrer">www.synaliz.com</a>
-            <a className="footer-cta" href="#contato">Conversar sobre meu site</a>
+            <a className="footer-cta" href="#contato" onClick={() => trackEvent("click_diagnostico", { location: "footer" })}>
+              Solicitar diagnóstico
+            </a>
           </div>
         </div>
 
         <div className="footer-bottom">
           <span>© 2026 Synaliz. Todos os direitos reservados.</span>
-          <span>Sua marca com presença própria, rápida e profissional.</span>
+          <span>Design, desenvolvimento, SEO e conversão para marcas em crescimento.</span>
         </div>
       </footer>
 
-      <a className="whatsapp-float" href={whatsappHref} target="_blank" rel="noreferrer" aria-label="Chamar a Synaliz no WhatsApp">
+      <a className="whatsapp-float" href={whatsappHref} target="_blank" rel="noreferrer" aria-label="Chamar a Synaliz no WhatsApp" onClick={() => trackEvent("click_whatsapp", { location: "float" })}>
         <WhatsAppIcon />
         <span>WhatsApp</span>
       </a>
