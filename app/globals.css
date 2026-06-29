@@ -1273,6 +1273,12 @@ h1 {
   color: var(--text);
 }
 
+.comparison-table span,
+.comparison-table strong {
+  min-width: 0;
+  line-height: 1.35;
+}
+
 .tech-grid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
@@ -2541,9 +2547,28 @@ select {
     grid-template-columns: 1fr;
   }
 
+  .comparison-table {
+    border-radius: 18px;
+  }
+
   .comparison-table > div {
-    grid-template-columns: 1fr;
-    gap: 8px;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: 12px;
+    padding: 16px 14px;
+    align-items: start;
+  }
+
+  .comparison-head {
+    background: rgba(7, 17, 27, 0.92);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+  }
+
+  .comparison-table span,
+  .comparison-table strong {
+    display: block;
+    font-size: 0.84rem;
+    line-height: 1.35;
   }
 
   .service-grid article::after {

@@ -742,23 +742,10 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section className="section-shell portfolio" id="portfolio">
-          <div className="section-heading">
-            <p className="eyebrow">Portfólio em construção</p>
-            <h2>Cases certos valem mais do que preencher espaço.</h2>
-            <p>Esta área será reservada para projetos que realmente representem o padrão visual, técnico e estratégico da Synaliz.</p>
-          </div>
-          <article className="case-card case-card-empty">
-            <div>
-              <span>Critério antes de volume</span>
-              <h3>Projetos selecionados, sem vitrine genérica.</h3>
-              <p>Em breve, a Synaliz vai destacar trabalhos com contexto, desafio, solução e qualidade real de entrega.</p>
-            </div>
-            <a className="btn secondary" href="https://www.synaliz.com" target="_blank" rel="noreferrer" onClick={() => trackEvent("view_portfolio")}>
-              Ver site atual
-            </a>
-          </article>
-        </section>
+        {/*
+          Portfólio pausado por enquanto.
+          Retomar quando tivermos cases que representem bem o padrão atual da Synaliz.
+        */}
 
         <section className="section-shell comparison" id="comparacao">
           <div className="section-heading compact">
@@ -945,7 +932,6 @@ export default function LandingPage() {
             <a href="#servicos">Serviços</a>
             <a href="#solucao">Soluções</a>
             <a href="#metodo">Método</a>
-            <a href="#portfolio">Portfólio</a>
             <a href="#contato">Contato</a>
           </div>
 
