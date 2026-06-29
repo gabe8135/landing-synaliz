@@ -1,10 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
   <defs>
-    <radialGradient id="gh" cx="50%" cy="50%" r="54%">
-      <stop offset="0" stop-color="#ffffff" stop-opacity="0.96"/>
-      <stop offset="1" stop-color="#00f5ff" stop-opacity="0.94"/>
-    </radialGradient>
+    <filter id="glowHover" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="0" stdDeviation="1.4" flood-color="#00f5ff" flood-opacity="0.65"/>
+    </filter>
   </defs>
-  <circle cx="12" cy="12" r="8.4" fill="url(#gh)"/>
-  <circle cx="12" cy="12" r="8.4" fill="none" stroke="#00f5ff" stroke-opacity="0.48" stroke-width="0.9"/>
+  <path
+    d="M4.5 3.35C3.84 3.02 3.1 3.63 3.36 4.32l5.88 16.02c.26.7 1.24.68 1.47-.04l1.9-5.82 5.95-2.02c.72-.24.75-1.22.06-1.54L4.5 3.35Z"
+    fill="#00f5ff"
+    stroke="#07111b"
+    stroke-width="1.2"
+    stroke-linejoin="round"
+    filter="url(#glowHover)"
+  />
 </svg>

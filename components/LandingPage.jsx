@@ -359,10 +359,8 @@ function SignalField() {
 
 export default function LandingPage() {
   const heroFrameRef = useRef(null);
-  const processSectionRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
-  const [activeProcessStep, setActiveProcessStep] = useState(0);
   const [successOpen, setSuccessOpen] = useState(false);
   const [formState, setFormState] = useState({
     sending: false,
@@ -391,7 +389,7 @@ export default function LandingPage() {
 
   useEffect(() => {
     const animatedItems = document.querySelectorAll(
-      ".section-heading, .service-grid article, .contact-card"
+      ".section-heading, .service-grid article, .method-grid article, .contact-card"
     );
 
     if (!("IntersectionObserver" in window)) {
@@ -426,108 +424,6 @@ export default function LandingPage() {
 
     animatedItems.forEach((item) => revealObserver.observe(item));
     return () => revealObserver.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const stage = processSectionRef.current;
-    if (!stage) return undefined;
-    const sticky = stage.querySelector(".method-sticky");
-    if (!sticky) return undefined;
-
-    let frameId = 0;
-
-    const applyStickyStyles = (mode, stageRect, pinTravel) => {
-      if (mode === "before") {
-        sticky.style.position = "relative";
-        sticky.style.top = "0px";
-        sticky.style.left = "0px";
-        sticky.style.width = "100%";
-        sticky.classList.remove("is-pinned", "is-ended");
-        return;
-      }
-
-      if (mode === "pinned") {
-        sticky.style.position = "fixed";
-        sticky.style.top = `${Math.round(pinTravel.stickyTop)}px`;
-        sticky.style.left = `${Math.round(stageRect.left)}px`;
-        sticky.style.width = `${Math.round(stageRect.width)}px`;
-        sticky.classList.add("is-pinned");
-        sticky.classList.remove("is-ended");
-        return;
-      }
-
-      sticky.style.position = "absolute";
-      sticky.style.top = `${Math.round(pinTravel.distance)}px`;
-      sticky.style.left = "0px";
-      sticky.style.width = "100%";
-      sticky.classList.remove("is-pinned");
-      sticky.classList.add("is-ended");
-    };
-
-    const updateActiveStep = () => {
-      const stageRect = stage.getBoundingClientRect();
-      const stageTop = window.scrollY + stageRect.top;
-      const stageHeight = stage.offsetHeight;
-      const stickyHeight = sticky.offsetHeight;
-      const configuredTop =
-        parseFloat(window.getComputedStyle(stage).getPropertyValue("--method-sticky-top")) || 92;
-      const header = document.querySelector(".site-header");
-      const headerBottom = header ? header.getBoundingClientRect().bottom : 0;
-      const stickyTop = Math.max(configuredTop, headerBottom + 14);
-      const maxCardHeight = Math.max(window.innerHeight - stickyTop - 24 - 36, 260);
-
-      stage.style.setProperty("--method-sticky-top", `${Math.round(stickyTop)}px`);
-      stage.style.setProperty("--method-card-max", `${Math.round(maxCardHeight)}px`);
-
-      const scrollableDistance = Math.max(stageHeight - stickyHeight - stickyTop, 1);
-      const start = stageTop - stickyTop;
-      const end = start + scrollableDistance;
-      const scrollY = window.scrollY;
-
-      if (stageHeight <= stickyHeight) {
-        applyStickyStyles("before", stageRect, { stickyTop, distance: 0 });
-        setActiveProcessStep(0);
-        return;
-      }
-
-      if (scrollY < start) {
-        applyStickyStyles("before", stageRect, { stickyTop, distance: scrollableDistance });
-      } else if (scrollY <= end) {
-        applyStickyStyles("pinned", stageRect, { stickyTop, distance: scrollableDistance });
-      } else {
-        applyStickyStyles("after", stageRect, { stickyTop, distance: scrollableDistance });
-      }
-
-      const rawProgress = (scrollY - start) / scrollableDistance;
-      const progress = Math.min(Math.max(rawProgress, 0), 1);
-      const nextStep = Math.min(
-        processSteps.length - 1,
-        Math.round(progress * (processSteps.length - 1))
-      );
-
-      setActiveProcessStep((current) => (current === nextStep ? current : nextStep));
-    };
-
-    const scheduleUpdate = () => {
-      cancelAnimationFrame(frameId);
-      frameId = requestAnimationFrame(updateActiveStep);
-    };
-
-    updateActiveStep();
-    window.addEventListener("scroll", scheduleUpdate, { passive: true });
-    window.addEventListener("resize", scheduleUpdate);
-
-    return () => {
-      cancelAnimationFrame(frameId);
-      window.removeEventListener("scroll", scheduleUpdate);
-      window.removeEventListener("resize", scheduleUpdate);
-      sticky.style.position = "relative";
-      sticky.style.top = "0px";
-      sticky.style.left = "0px";
-      sticky.style.width = "100%";
-      sticky.classList.remove("is-pinned", "is-ended");
-      stage.style.removeProperty("--method-card-max");
-    };
   }, []);
 
   async function handleContactSubmit(event) {
@@ -605,8 +501,6 @@ export default function LandingPage() {
     frame.dataset.tiltX = "6";
     frame.dataset.tiltY = "-13";
   }
-
-  const currentStep = processSteps[activeProcessStep];
 
   return (
     <>
@@ -835,25 +729,15 @@ export default function LandingPage() {
               <span>com direção em cada etapa.</span>
             </h2>
           </div>
-          <div className="method-stage" ref={processSectionRef}>
-            <div className="method-sticky" aria-live="polite">
-              <div className="method-stack" role="region" aria-label="Etapas do Método Synaliz">
-                <article
-                  className="method-panel is-active"
-                  key={`current-${currentStep[0]}`}
-                  aria-hidden={false}
-                  data-step={currentStep[0]}
-                >
-                  <span>{currentStep[0]}</span>
-                  <h3>{currentStep[1]}</h3>
-                  <p>{currentStep[2]}</p>
+          <div className="method-stage">
+            <div className="method-grid" role="list" aria-label="Etapas do Método Synaliz">
+              {processSteps.map(([number, title, text]) => (
+                <article className="method-panel" key={number} role="listitem" data-step={number}>
+                  <span>{number}</span>
+                  <h3>{title}</h3>
+                  <p>{text}</p>
                 </article>
-              </div>
-              <div className="method-progress" aria-hidden="true">
-                {processSteps.map(([number], index) => (
-                  <span className={activeProcessStep === index ? "is-active" : ""} key={number} />
-                ))}
-              </div>
+              ))}
             </div>
           </div>
         </section>
