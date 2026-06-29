@@ -81,85 +81,18 @@ body::selection {
   body textarea,
   body [role="button"],
   body summary {
-    cursor: none;
+    cursor: url('/assets/cursor-soft.svg') 8 8, auto;
   }
 
-  .custom-cursor {
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 2147483647;
-    display: none;
-    opacity: 0;
-    pointer-events: none;
-    transform: translate3d(var(--cursor-x, -120px), var(--cursor-y, -120px), 0);
-    transition: opacity 160ms ease;
-    mix-blend-mode: normal;
-  }
-
-  .custom-cursor-active .custom-cursor {
-    display: block;
-    opacity: 1;
-  }
-
-  .custom-cursor-ring,
-  .custom-cursor-dot {
-    position: absolute;
-    left: 0;
-    top: 0;
-    transform: translate(-50%, -50%);
-    transition:
-      width 180ms ease,
-      height 180ms ease,
-      border-color 180ms ease,
-      background 180ms ease,
-      box-shadow 180ms ease,
-      transform 180ms ease,
-      opacity 180ms ease;
-  }
-
-  .custom-cursor-ring {
-    width: 24px;
-    height: 24px;
-    border: 1px solid rgba(7, 17, 27, 0.58);
-    border-radius: 6px 14px 8px 16px;
-    background: linear-gradient(160deg, rgba(244, 246, 248, 0.95), rgba(0, 245, 255, 0.86));
-    clip-path: polygon(0 0, 0 100%, 32% 72%, 56% 100%, 72% 90%, 48% 63%, 100% 63%);
-    transform: translate(-18%, -8%) rotate(-12deg);
-    box-shadow:
-      0 0 16px rgba(0, 245, 255, 0.36),
-      0 10px 26px rgba(0, 0, 0, 0.22);
-  }
-
-  .custom-cursor-dot {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(0, 245, 255, 0.22), transparent 72%);
-    box-shadow:
-      0 0 0 1px rgba(0, 245, 255, 0.2),
-      0 0 26px rgba(0, 245, 255, 0.38);
-    opacity: 0.9;
-  }
-
-  .custom-cursor-hover .custom-cursor-ring {
-    width: 28px;
-    height: 28px;
-    border-color: rgba(244, 246, 248, 0.72);
-    background: linear-gradient(160deg, rgba(244, 246, 248, 1), rgba(0, 245, 255, 0.95));
-    transform: translate(-16%, -7%) rotate(-6deg) scale(1.06);
-    box-shadow:
-      0 0 24px rgba(0, 245, 255, 0.58),
-      0 12px 28px rgba(0, 0, 0, 0.25);
-  }
-
-  .custom-cursor-hover .custom-cursor-dot {
-    width: 42px;
-    height: 42px;
-    background: radial-gradient(circle, rgba(0, 245, 255, 0.3), transparent 72%);
-    box-shadow:
-      0 0 0 1px rgba(244, 246, 248, 0.18),
-      0 0 30px rgba(0, 245, 255, 0.8);
+  body a,
+  body button,
+  body [role="button"],
+  body summary,
+  .btn,
+  .whatsapp-float,
+  .header-cta,
+  .menu-toggle {
+    cursor: url('/assets/cursor-soft-hover.svg') 8 8, pointer;
   }
 }
 
@@ -1407,19 +1340,23 @@ h1 {
 }
 
 .method-stage {
-  --method-card-height: clamp(320px, 64vh, 560px);
+  --method-card-height: min(clamp(320px, 60vh, 540px), var(--method-card-max, 540px));
   --method-card-radius: clamp(24px, 3vw, 32px);
   --method-sticky-top: clamp(92px, 12vh, 132px);
-  --method-step-travel: clamp(170px, 24vh, 240px);
+  --method-step-travel: clamp(128px, 18vh, 190px);
   position: relative;
   min-height: calc(var(--method-card-height) + ((6 - 1) * var(--method-step-travel)) + var(--method-sticky-top));
 }
 
 .method-sticky {
-  position: sticky;
-  top: var(--method-sticky-top);
+  position: relative;
+  top: 0;
   display: grid;
   gap: 16px;
+}
+
+.method-sticky.is-pinned {
+  z-index: 5;
 }
 
 .method-stack {
@@ -1436,11 +1373,8 @@ h1 {
   min-height: var(--method-card-height);
   padding: clamp(28px, 4vw, 52px);
   border-radius: var(--method-card-radius);
-  will-change: transform, opacity, filter;
-  transition:
-    opacity 260ms ease,
-    transform 360ms cubic-bezier(0.2, 0.9, 0.2, 1),
-    filter 260ms ease;
+  will-change: transform;
+  animation: methodCardSlide 240ms cubic-bezier(0.2, 0.9, 0.2, 1);
 }
 
 .method-panel.is-active {
@@ -1475,7 +1409,8 @@ h1 {
   max-width: 680px;
   color: var(--text);
   font-size: clamp(2rem, 4vw, 4.6rem);
-  line-height: 0.9;
+  line-height: 0.96;
+  overflow-wrap: anywhere;
 }
 
 .method-panel p {
@@ -2064,6 +1999,15 @@ select {
   }
 }
 
+@keyframes methodCardSlide {
+  from {
+    transform: translateY(18px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
 @keyframes cardSweep {
   0%,
   35% {
@@ -2197,9 +2141,9 @@ select {
   }
 
   .method-stage {
-    --method-card-height: clamp(300px, 62vh, 500px);
+    --method-card-height: min(clamp(290px, 54vh, 430px), var(--method-card-max, 430px));
     --method-sticky-top: clamp(88px, 9vh, 114px);
-    --method-step-travel: clamp(150px, 20vh, 212px);
+    --method-step-travel: clamp(98px, 13vh, 150px);
     min-height: calc(var(--method-card-height) + ((6 - 1) * var(--method-step-travel)) + var(--method-sticky-top));
   }
 
@@ -2630,23 +2574,31 @@ select {
   }
 
   .method-panel {
-    padding: 24px 22px;
-    border-radius: 24px;
+    padding: 20px 18px;
+    border-radius: 20px;
   }
 
   .method-panel span {
-    margin-bottom: 32px;
-    font-size: clamp(4rem, 22vw, 6rem);
+    margin-bottom: 18px;
+    font-size: clamp(2.9rem, 16vw, 4.6rem);
+    line-height: 0.82;
   }
 
   .method-panel h3 {
-    font-size: clamp(2rem, 12vw, 3.2rem);
+    font-size: clamp(1.62rem, 8.1vw, 2.25rem);
+    line-height: 1;
+  }
+
+  .method-panel p {
+    margin-top: 12px;
+    font-size: 0.98rem;
+    line-height: 1.5;
   }
 
   .method-stage {
-    --method-card-height: clamp(300px, 56vh, 420px);
+    --method-card-height: min(clamp(340px, 58vh, 500px), var(--method-card-max, 500px));
     --method-sticky-top: 86px;
-    --method-step-travel: clamp(128px, 15vh, 168px);
+    --method-step-travel: clamp(56px, 8vh, 86px);
     min-height: calc(var(--method-card-height) + ((6 - 1) * var(--method-step-travel)) + var(--method-sticky-top));
   }
 

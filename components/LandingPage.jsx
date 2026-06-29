@@ -362,7 +362,6 @@ export default function LandingPage() {
   const processSectionRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
-  const [processProgress, setProcessProgress] = useState(0);
   const [activeProcessStep, setActiveProcessStep] = useState(0);
   const [successOpen, setSuccessOpen] = useState(false);
   const [formState, setFormState] = useState({
@@ -377,39 +376,6 @@ export default function LandingPage() {
     document.body.classList.toggle("modal-open", anyModalOpen);
     return () => document.body.classList.remove("modal-open");
   }, [anyModalOpen]);
-
-  useEffect(() => {
-    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return undefined;
-
-    const moveCursor = (event) => {
-      document.documentElement.style.setProperty("--cursor-x", `${event.clientX}px`);
-      document.documentElement.style.setProperty("--cursor-y", `${event.clientY}px`);
-      document.body.classList.add("custom-cursor-active");
-    };
-
-    const updateHoverState = (event) => {
-      const target = event.target;
-      const isInteractive = target.closest?.("a, button, input, select, textarea, [role='button'], summary");
-      document.body.classList.toggle("custom-cursor-hover", Boolean(isInteractive));
-    };
-
-    const hideCursor = () => {
-      document.body.classList.remove("custom-cursor-active", "custom-cursor-hover");
-    };
-
-    window.addEventListener("pointermove", moveCursor);
-    window.addEventListener("pointerover", updateHoverState);
-    window.addEventListener("pointerout", updateHoverState);
-    document.addEventListener("mouseleave", hideCursor);
-
-    return () => {
-      window.removeEventListener("pointermove", moveCursor);
-      window.removeEventListener("pointerover", updateHoverState);
-      window.removeEventListener("pointerout", updateHoverState);
-      document.removeEventListener("mouseleave", hideCursor);
-      document.body.classList.remove("custom-cursor-active", "custom-cursor-hover");
-    };
-  }, []);
 
   useEffect(() => {
     const onKeyDown = (event) => {
@@ -463,27 +429,82 @@ export default function LandingPage() {
   }, []);
 
   useEffect(() => {
-    const section = processSectionRef.current;
-    if (!section) return undefined;
+    const stage = processSectionRef.current;
+    if (!stage) return undefined;
+    const sticky = stage.querySelector(".method-sticky");
+    if (!sticky) return undefined;
 
     let frameId = 0;
 
-    const updateActiveStep = () => {
-      const rect = section.getBoundingClientRect();
-      const viewportHeight = Math.max(window.innerHeight || 1, 1);
-      const scrollableDistance = rect.height - viewportHeight;
+    const applyStickyStyles = (mode, stageRect, pinTravel) => {
+      if (mode === "before") {
+        sticky.style.position = "relative";
+        sticky.style.top = "0px";
+        sticky.style.left = "0px";
+        sticky.style.width = "100%";
+        sticky.classList.remove("is-pinned", "is-ended");
+        return;
+      }
 
-      if (scrollableDistance <= 0) {
-        setProcessProgress(0);
+      if (mode === "pinned") {
+        sticky.style.position = "fixed";
+        sticky.style.top = `${Math.round(pinTravel.stickyTop)}px`;
+        sticky.style.left = `${Math.round(stageRect.left)}px`;
+        sticky.style.width = `${Math.round(stageRect.width)}px`;
+        sticky.classList.add("is-pinned");
+        sticky.classList.remove("is-ended");
+        return;
+      }
+
+      sticky.style.position = "absolute";
+      sticky.style.top = `${Math.round(pinTravel.distance)}px`;
+      sticky.style.left = "0px";
+      sticky.style.width = "100%";
+      sticky.classList.remove("is-pinned");
+      sticky.classList.add("is-ended");
+    };
+
+    const updateActiveStep = () => {
+      const stageRect = stage.getBoundingClientRect();
+      const stageTop = window.scrollY + stageRect.top;
+      const stageHeight = stage.offsetHeight;
+      const stickyHeight = sticky.offsetHeight;
+      const configuredTop =
+        parseFloat(window.getComputedStyle(stage).getPropertyValue("--method-sticky-top")) || 92;
+      const header = document.querySelector(".site-header");
+      const headerBottom = header ? header.getBoundingClientRect().bottom : 0;
+      const stickyTop = Math.max(configuredTop, headerBottom + 14);
+      const maxCardHeight = Math.max(window.innerHeight - stickyTop - 24 - 36, 260);
+
+      stage.style.setProperty("--method-sticky-top", `${Math.round(stickyTop)}px`);
+      stage.style.setProperty("--method-card-max", `${Math.round(maxCardHeight)}px`);
+
+      const scrollableDistance = Math.max(stageHeight - stickyHeight - stickyTop, 1);
+      const start = stageTop - stickyTop;
+      const end = start + scrollableDistance;
+      const scrollY = window.scrollY;
+
+      if (stageHeight <= stickyHeight) {
+        applyStickyStyles("before", stageRect, { stickyTop, distance: 0 });
         setActiveProcessStep(0);
         return;
       }
 
-      const progress = Math.min(Math.max(-rect.top / scrollableDistance, 0), 1);
-      const stepFloat = progress * (processSteps.length - 1);
-      const nextStep = Math.min(processSteps.length - 1, Math.round(stepFloat));
+      if (scrollY < start) {
+        applyStickyStyles("before", stageRect, { stickyTop, distance: scrollableDistance });
+      } else if (scrollY <= end) {
+        applyStickyStyles("pinned", stageRect, { stickyTop, distance: scrollableDistance });
+      } else {
+        applyStickyStyles("after", stageRect, { stickyTop, distance: scrollableDistance });
+      }
 
-      setProcessProgress(progress);
+      const rawProgress = (scrollY - start) / scrollableDistance;
+      const progress = Math.min(Math.max(rawProgress, 0), 1);
+      const nextStep = Math.min(
+        processSteps.length - 1,
+        Math.round(progress * (processSteps.length - 1))
+      );
+
       setActiveProcessStep((current) => (current === nextStep ? current : nextStep));
     };
 
@@ -500,6 +521,12 @@ export default function LandingPage() {
       cancelAnimationFrame(frameId);
       window.removeEventListener("scroll", scheduleUpdate);
       window.removeEventListener("resize", scheduleUpdate);
+      sticky.style.position = "relative";
+      sticky.style.top = "0px";
+      sticky.style.left = "0px";
+      sticky.style.width = "100%";
+      sticky.classList.remove("is-pinned", "is-ended");
+      stage.style.removeProperty("--method-card-max");
     };
   }, []);
 
@@ -579,15 +606,11 @@ export default function LandingPage() {
     frame.dataset.tiltY = "-13";
   }
 
-  const processStepFloat = processProgress * (processSteps.length - 1);
+  const currentStep = processSteps[activeProcessStep];
 
   return (
     <>
       <SignalField />
-      <div className="custom-cursor" aria-hidden="true">
-        <span className="custom-cursor-ring" />
-        <span className="custom-cursor-dot" />
-      </div>
 
       <header className="site-header">
         <Brand />
@@ -815,33 +838,16 @@ export default function LandingPage() {
           <div className="method-stage" ref={processSectionRef}>
             <div className="method-sticky" aria-live="polite">
               <div className="method-stack" role="region" aria-label="Etapas do Método Synaliz">
-                {processSteps.map(([number, title, text], index) => {
-                  const distance = index - processStepFloat;
-                  const absDistance = Math.abs(distance);
-                  const opacity = Math.max(0, 1 - absDistance * 1.06);
-                  const translateY = distance * 46;
-                  const scale = 1 - Math.min(absDistance * 0.08, 0.18);
-                  const blur = Math.min(absDistance * 2.4, 6);
-                  const panelClass = activeProcessStep === index ? "method-panel is-active" : "method-panel";
-
-                  return (
-                    <article
-                      className={panelClass}
-                      key={number}
-                      aria-hidden={opacity < 0.15}
-                      style={{
-                        opacity,
-                        transform: `translate3d(0, ${translateY}px, 0) scale(${scale})`,
-                        filter: `blur(${blur}px)`,
-                        zIndex: Math.round((1 - Math.min(absDistance, 1.8) / 1.8) * 100),
-                      }}
-                    >
-                      <span>{number}</span>
-                      <h3>{title}</h3>
-                      <p>{text}</p>
-                    </article>
-                  );
-                })}
+                <article
+                  className="method-panel is-active"
+                  key={`current-${currentStep[0]}`}
+                  aria-hidden={false}
+                  data-step={currentStep[0]}
+                >
+                  <span>{currentStep[0]}</span>
+                  <h3>{currentStep[1]}</h3>
+                  <p>{currentStep[2]}</p>
+                </article>
               </div>
               <div className="method-progress" aria-hidden="true">
                 {processSteps.map(([number], index) => (
