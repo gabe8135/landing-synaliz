@@ -8,9 +8,9 @@ module.exports = {
     extend: {
       colors: {
         synaliz: {
-          dark: "#07111b",
-          cyan: "#00f5ff",
-          muted: "#b8cad4",
+          dark: "#070A0D",
+          cyan: "#00DDEB",
+          muted: "#A7B0B8",
         },
       },
       fontFamily: {

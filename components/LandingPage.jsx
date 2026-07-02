@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 
@@ -182,16 +182,8 @@ const faqs = [
     "Depende do formato, quantidade de páginas, nível de design, integrações e estratégia. O primeiro passo é entender sua necessidade para indicar o caminho certo.",
   ],
   [
-    "Qual a diferença entre site institucional e landing page?",
-    "O site institucional apresenta a empresa de forma ampla. A landing page foca uma oferta, campanha ou ação específica.",
-  ],
-  [
     "Um site pode ajudar minha empresa a conseguir mais clientes?",
     "Sim, quando comunica valor com clareza, carrega rápido, facilita o contato e está preparado para busca e conversão.",
-  ],
-  [
-    "A Synaliz cria sites com SEO?",
-    "Sim. A estrutura já nasce com hierarquia, metadados, performance, responsividade e base técnica para ferramentas de busca.",
   ],
   [
     "O site será responsivo?",
@@ -202,12 +194,8 @@ const faqs = [
     "Não trabalhamos com aparência genérica. A estrutura visual e a mensagem são pensadas para a marca e o objetivo do projeto.",
   ],
   [
-    "É possível integrar WhatsApp, formulários e pixels?",
-    "Sim. Podemos preparar WhatsApp, formulários, Analytics, Tag Manager, pixels e eventos de conversão.",
-  ],
-  [
-    "A Synaliz atende outras cidades ou países?",
-    "Sim. O processo é remoto, claro e preparado para empresas no Brasil e no exterior.",
+    "O que preciso ter antes de começar?",
+    "Basta saber o que você quer apresentar ou vender. Se ainda estiver confuso, a Synaliz ajuda a organizar o caminho.",
   ],
 ];
 
@@ -309,8 +297,8 @@ function SignalField() {
 
     function draw() {
       ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = "rgba(159, 179, 192, 0.82)";
-      ctx.strokeStyle = "rgba(90, 141, 160, 0.24)";
+      ctx.fillStyle = "rgba(167, 176, 184, 0.82)";
+      ctx.strokeStyle = "rgba(0, 158, 173, 0.24)";
       ctx.lineWidth = 1.25;
 
       nodes.forEach((node, index) => {
@@ -364,7 +352,7 @@ export default function LandingPage() {
   const [successOpen, setSuccessOpen] = useState(false);
   const [formState, setFormState] = useState({
     sending: false,
-    message: "Depois do envio, eu te retorno pelo contato informado com uma sugestão de caminho.",
+    message: "Você envia o essencial. Eu respondo com o próximo passo.",
     error: false,
   });
 
@@ -440,7 +428,6 @@ export default function LandingPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           nome: data.get("nome") || "",
-          empresa: data.get("empresa") || "",
           whatsapp: data.get("whatsapp") || "",
           tipoProjeto: data.get("tipoProjeto") || "",
           orcamento: data.get("orcamento") || "",
@@ -626,7 +613,7 @@ export default function LandingPage() {
         <section className="section-shell about" id="sobre">
           <div className="section-heading">
             <p className="eyebrow">Sobre a Synaliz</p>
-            <h2>Um estúdio web para empresas que querem parecer profissionais de verdade.</h2>
+            <h2>Um estúdio web para empresas que se importam em mostrar que são profissionais de verdade.</h2>
             <p>Atuamos entre design, tecnologia e estratégia para criar sites com identidade própria, leitura rápida e base técnica profissional.</p>
           </div>
           <div className="about-panel">
@@ -799,65 +786,63 @@ export default function LandingPage() {
             {faqs.map(([question, answer]) => (
               <details key={question}>
                 <summary>{question}</summary>
-                <p>{answer}</p>
+                <div className="faq-answer">
+                  <p>{answer}</p>
+                </div>
               </details>
             ))}
           </div>
         </section>
 
         <section className="section-shell contact" id="contato">
-          <div className="contact-card">
+          <div className="contact-card contact-card-lean">
             <div>
-              <p className="eyebrow">Diagnóstico</p>
-              <h2>Vamos transformar seu site em um ativo de crescimento?</h2>
-              <p>Receba uma análise inicial para melhorar sua presença digital com mais clareza, autoridade e conversão.</p>
+              <p className="eyebrow">Diagnóstico rápido</p>
+              <h2>Me diga o que você precisa. O resto eu organizo com você.</h2>
+              <p>Escolha o caminho mais próximo do seu projeto e escreva só o essencial para eu entender o cenário.</p>
             </div>
             <form className="contact-form" onSubmit={handleContactSubmit}>
               <label>
-                Como posso te chamar?
-                <input type="text" name="nome" placeholder="Seu nome" required />
+                Seu nome
+                <input type="text" name="nome" placeholder="Como posso te chamar?" required />
               </label>
               <label>
-                Empresa
-                <input type="text" name="empresa" placeholder="Nome da empresa ou marca" />
+                Seu WhatsApp ou Email
+                <input type="text" name="whatsapp" placeholder="Onde eu te respondo?" required />
               </label>
               <label>
-                WhatsApp
-                <input type="tel" name="whatsapp" placeholder="Seu melhor número" required />
-              </label>
-              <label>
-                Tipo de projeto
+                O que você precisa?
                 <select name="tipoProjeto" required defaultValue="">
                   <option value="" disabled>Escolha uma opção</option>
                   <option>Site institucional</option>
                   <option>Landing page</option>
                   <option>Catálogo digital</option>
-                  <option>Redesign</option>
-                  <option>Manutenção</option>
-                  <option>Outro</option>
+                  <option>Redesign de site</option>
+                  <option>Manutenção e melhorias</option>
+                  <option>Ainda não sei exatamente</option>
                 </select>
               </label>
               <label>
-                Orçamento aproximado
+                Momento do projeto
                 <select name="orcamento" required defaultValue="">
-                  <option value="" disabled>Escolha uma faixa</option>
-                  <option>Até R$ 1.500</option>
-                  <option>R$ 1.500 a R$ 3.000</option>
-                  <option>R$ 3.000 a R$ 6.000</option>
-                  <option>Acima de R$ 6.000</option>
+                  <option value="" disabled>Escolha uma opção</option>
+                  <option>Quero começar o quanto antes</option>
+                  <option>Estou pesquisando possibilidades</option>
+                  <option>Preciso melhorar um site existente</option>
+                  <option>Quero entender investimento e prazo</option>
                 </select>
               </label>
               <label>
-                Mensagem
+                Complemento rápido
                 <textarea
                   name="mensagem"
-                  rows={4}
-                  placeholder="Conte o que sua empresa precisa melhorar no digital."
+                  rows={3}
+                  placeholder="Ex: minha empresa precisa parecer mais profissional e facilitar pedidos pelo WhatsApp."
                   required
                 />
               </label>
               <button className="btn primary" type="submit" disabled={formState.sending}>
-                {formState.sending ? "Enviando..." : "Solicitar diagnóstico"}
+                {formState.sending ? "Enviando..." : "Receber uma direção"}
               </button>
               <p className={`form-note ${formState.error ? "error" : ""}`} aria-live="polite">
                 {formState.message}
@@ -867,8 +852,7 @@ export default function LandingPage() {
                 Prefiro chamar no WhatsApp
               </a>
             </form>
-          </div>
-        </section>
+          </div>        </section>
       </main>
 
       {selectedService && (
