@@ -127,16 +127,16 @@ const trustItems = [
 ];
 
 const studioPillars = [
+  ["Estratégia", "mensagem clara, SEO técnico e jornada para contato"],
   ["Design", "interface com identidade, hierarquia e acabamento premium"],
   ["Código", "desenvolvimento moderno, rápido e preparado para crescer"],
-  ["Estratégia", "mensagem clara, SEO técnico e jornada para contato"],
 ];
 
 const problems = [
   ["Visual genérico", "A marca parece menor do que realmente é."],
   ["Mensagem confusa", "O visitante não entende valor, serviço ou próximo passo."],
   ["Pouca confiança", "A primeira impressão não sustenta uma conversa comercial."],
-  ["Base fraca", "Site lento, sem SEO e difícil de evoluir com segurança."],
+  ["Base técnica fraca", "Site lento, sem SEO e difícil de evoluir com segurança."],
 ];
 
 const solutions = [
@@ -148,14 +148,9 @@ const solutions = [
 ];
 
 const differentials = [
-  "Design próprio, sem aparência de template",
-  "Desenvolvimento moderno com Next.js e Vercel",
-  "Estrutura pensada para SEO e performance",
-  "Copy objetiva para aumentar clareza",
-  "Layout responsivo e mobile first",
-  "Integrações com WhatsApp, formulários e rastreamento",
-  "Atendimento próximo e estratégico",
-  "Visão de marca, não apenas execução técnica",
+  ["Estratégia antes do layout", "Primeiro entendemos marca, oferta e objetivo. Depois desenhamos a experiência."],
+  ["Código limpo e performance", "Estrutura rápida, responsiva e preparada para SEO, métricas e evolução."],
+  ["Percepção de valor", "Cada tela é pensada para sua empresa parecer tão profissional quanto ela é."],
 ];
 
 const comparisonRows = [
@@ -173,7 +168,10 @@ const performanceItems = [
   "Metadados",
   "Estrutura semântica",
   "Open Graph",
-  "Analytics e eventos",
+  "Analytics",
+  "Eventos",
+  "Rastreamento",
+  "Evolução",
 ];
 
 const faqs = [
@@ -580,24 +578,24 @@ export default function LandingPage() {
               <div className="mockup-grid">
                 <div className="mock-hero">
                   <span className="pulse-dot" />
-                  <p>Feito para sua marca</p>
+                  <p>Mapa Synaliz</p>
                   <h2>Clareza para explicar. Confiança para converter.</h2>
                 </div>
                 <div className="metric-card">
-                  <small>Primeira impressão</small>
-                  <strong>3s</strong>
-                  <span>para entender seu valor</span>
+                  <small>Conexão</small>
+                  <strong>4</strong>
+                  <span>pontos alinhados</span>
                 </div>
                 <div className="metric-card accent">
-                  <small>Identidade</small>
+                  <small>Direção</small>
                   <strong>1</strong>
-                  <span>site com intenção própria</span>
+                  <span>presença com intenção</span>
                 </div>
                 <div className="code-card">
-                  <span>Mensagem clara</span>
-                  <span>Visual com identidade</span>
-                  <span>SEO inicial</span>
-                  <span>Contato sem atrito</span>
+                  <span>Marca</span>
+                  <span>Mensagem</span>
+                  <span>Performance</span>
+                  <span>Contato</span>
                 </div>
               </div>
             </div>
@@ -613,8 +611,8 @@ export default function LandingPage() {
         <section className="section-shell about" id="sobre">
           <div className="section-heading">
             <p className="eyebrow">Sobre a Synaliz</p>
-            <h2>Um estúdio web para empresas que se importam em mostrar que são profissionais de verdade.</h2>
-            <p>Atuamos entre design, tecnologia e estratégia para criar sites com identidade própria, leitura rápida e base técnica profissional.</p>
+            <h2>Um estúdio web para empresas que não querem parecer menores do que são.</h2>
+            <p>Unimos estratégia, design e desenvolvimento para criar presença digital com identidade, clareza e base técnica profissional.</p>
           </div>
           <div className="about-panel">
             <div className="about-copy">
@@ -649,6 +647,7 @@ export default function LandingPage() {
               </article>
             ))}
           </div>
+          <p className="problem-closing">Tudo isso faz uma empresa boa parecer comum.</p>
         </section>
 
         <section className="section-shell solution" id="solucao">
@@ -702,8 +701,11 @@ export default function LandingPage() {
             <h2>Por que escolher a Synaliz?</h2>
           </div>
           <div className="feature-list">
-            {differentials.map((item) => (
-              <span key={item}>{item}</span>
+            {differentials.map(([title, text]) => (
+              <article key={title}>
+                <strong>{title}</strong>
+                <span>{text}</span>
+              </article>
             ))}
           </div>
         </section>
@@ -769,8 +771,8 @@ export default function LandingPage() {
         <section className="section-shell international" id="internacional">
           <div className="section-heading">
             <p className="eyebrow">Brasil e exterior</p>
-            <h2>Projetos digitais para empresas no Brasil e no mundo.</h2>
-            <p>Atuação remota, processo claro e entrega profissional para marcas que precisam de presença digital estratégica.</p>
+            <h2>Projetos remotos para marcas que precisam de presença digital sem fronteiras.</h2>
+            <p>Processo claro, comunicação próxima e entrega profissional para empresas no Brasil e no exterior.</p>
             <a className="btn secondary" href="#contato" onClick={() => trackEvent("click_start_project")}>
               Start a project
             </a>
@@ -798,8 +800,8 @@ export default function LandingPage() {
           <div className="contact-card contact-card-lean">
             <div>
               <p className="eyebrow">Diagnóstico rápido</p>
-              <h2>Me diga o que você precisa. O resto eu organizo com você.</h2>
-              <p>Escolha o caminho mais próximo do seu projeto e escreva só o essencial para eu entender o cenário.</p>
+              <h2>Comece com um diagnóstico. Não com um orçamento no escuro.</h2>
+              <p>Escolha o caminho mais próximo do seu projeto e envie o essencial. Eu retorno com uma direção clara.</p>
             </div>
             <form className="contact-form" onSubmit={handleContactSubmit}>
               <label>
