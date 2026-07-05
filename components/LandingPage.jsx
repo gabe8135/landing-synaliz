@@ -120,20 +120,20 @@ const trustItems = [
   "Estúdio web",
   "Sites sob medida",
   "Alta performance",
-  "SEO técnico",
+  "Busca no Google",
   "Layout responsivo",
   "Estratégia de conversão",
   "Suporte humano",
 ];
 
 const studioPillars = [
-  ["Estratégia", "mensagem clara, SEO técnico e jornada para contato"],
+  ["Estratégia", "mensagem clara, presença no Google e jornada para contato"],
   ["Design", "interface com identidade, hierarquia e acabamento premium"],
   ["Código", "desenvolvimento moderno, rápido e preparado para crescer"],
 ];
 
 const problems = [
-  ["Visual genérico", "A marca parece menor do que realmente é."],
+  ["Visual genérico", "A marca parece menos profissional do que deveria."],
   ["Mensagem confusa", "O visitante não entende valor, serviço ou próximo passo."],
   ["Pouca confiança", "A primeira impressão não sustenta uma conversa comercial."],
   ["Base técnica fraca", "Site lento, sem SEO e difícil de evoluir com segurança."],
@@ -143,7 +143,7 @@ const solutions = [
   ["Clareza", "para explicar sua oferta"],
   ["Design", "para valorizar sua marca"],
   ["Performance", "para melhorar a experiência"],
-  ["SEO", "para fortalecer presença orgânica"],
+  ["Busca", "para sua empresa ser encontrada"],
   ["Conversão", "para gerar contatos qualificados"],
 ];
 
@@ -156,14 +156,14 @@ const differentials = [
 const comparisonRows = [
   ["Visual genérico", "Design com identidade"],
   ["Sem estratégia", "Estrutura orientada por objetivos"],
-  ["Sem SEO", "SEO técnico desde a base"],
+  ["Sem base de busca", "Estrutura preparada para o Google"],
   ["Sem rastreamento", "Eventos e métricas preparados"],
   ["Apenas entrega", "Evolução e suporte"],
   ["Texto confuso", "Copy clara e objetiva"],
 ];
 
 const performanceItems = [
-  "SEO técnico",
+  "Busca no Google",
   "Core Web Vitals",
   "Metadados",
   "Estrutura semântica",
@@ -184,12 +184,12 @@ const faqs = [
     "Sim, quando comunica valor com clareza, carrega rápido, facilita o contato e está preparado para busca e conversão.",
   ],
   [
-    "O site será responsivo?",
+    "O site funciona bem no celular?",
     "Sim. A experiência é pensada para desktop, tablet e celular, com prioridade para leitura rápida e contato fácil.",
   ],
   [
-    "Vocês usam templates prontos?",
-    "Não trabalhamos com aparência genérica. A estrutura visual e a mensagem são pensadas para a marca e o objetivo do projeto.",
+    "Meu site vai ter a cara da minha marca?",
+    "Sim. Mesmo quando usamos alguma base para acelerar, o visual, a mensagem e a estrutura são ajustados para o objetivo da sua marca.",
   ],
   [
     "O que preciso ter antes de começar?",
@@ -269,10 +269,74 @@ function SignalField() {
     if (!canvas) return undefined;
 
     const ctx = canvas.getContext("2d");
+    const activeSection = { current: "inicio" };
+    const sectionTone = {
+      inicio: {
+        dot: "rgba(167, 176, 184, 0.82)",
+        line: "rgba(0, 158, 173, 0.24)",
+        radius: 165,
+      },
+      sobre: {
+        dot: "rgba(167, 176, 184, 0.68)",
+        line: "rgba(0, 221, 235, 0.18)",
+        radius: 150,
+      },
+      problema: {
+        dot: "rgba(216, 166, 66, 0.66)",
+        line: "rgba(216, 166, 66, 0.12)",
+        radius: 132,
+      },
+      solucao: {
+        dot: "rgba(0, 221, 235, 0.92)",
+        line: "rgba(0, 221, 235, 0.24)",
+        radius: 174,
+      },
+      servicos: {
+        dot: "rgba(247, 249, 250, 0.72)",
+        line: "rgba(0, 221, 235, 0.18)",
+        radius: 158,
+      },
+      diferenciais: {
+        dot: "rgba(167, 176, 184, 0.72)",
+        line: "rgba(0, 158, 173, 0.2)",
+        radius: 168,
+      },
+      metodo: {
+        dot: "rgba(0, 221, 235, 0.8)",
+        line: "rgba(0, 221, 235, 0.16)",
+        radius: 142,
+      },
+      comparacao: {
+        dot: "rgba(216, 166, 66, 0.68)",
+        line: "rgba(216, 166, 66, 0.12)",
+        radius: 140,
+      },
+      performance: {
+        dot: "rgba(0, 221, 235, 0.82)",
+        line: "rgba(0, 158, 173, 0.22)",
+        radius: 178,
+      },
+      internacional: {
+        dot: "rgba(247, 249, 250, 0.66)",
+        line: "rgba(0, 221, 235, 0.13)",
+        radius: 128,
+      },
+      faq: {
+        dot: "rgba(167, 176, 184, 0.62)",
+        line: "rgba(167, 176, 184, 0.12)",
+        radius: 122,
+      },
+      contato: {
+        dot: "rgba(216, 166, 66, 0.78)",
+        line: "rgba(216, 166, 66, 0.14)",
+        radius: 150,
+      },
+    };
     let width = 0;
     let height = 0;
     let nodes = [];
     let frameId = 0;
+    let sectionObserver;
 
     function resizeCanvas() {
       const ratio = Math.min(window.devicePixelRatio || 1, 2);
@@ -295,8 +359,9 @@ function SignalField() {
 
     function draw() {
       ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = "rgba(167, 176, 184, 0.82)";
-      ctx.strokeStyle = "rgba(0, 158, 173, 0.24)";
+      const tone = sectionTone[activeSection.current] || sectionTone.inicio;
+      ctx.fillStyle = tone.dot;
+      ctx.strokeStyle = tone.line;
       ctx.lineWidth = 1.25;
 
       nodes.forEach((node, index) => {
@@ -316,8 +381,8 @@ function SignalField() {
           const dy = node.y - other.y;
           const distance = Math.hypot(dx, dy);
 
-          if (distance < 165) {
-            ctx.globalAlpha = 1 - distance / 165;
+          if (distance < tone.radius) {
+            ctx.globalAlpha = 1 - distance / tone.radius;
             ctx.beginPath();
             ctx.moveTo(node.x, node.y);
             ctx.lineTo(other.x, other.y);
@@ -334,9 +399,30 @@ function SignalField() {
     draw();
     window.addEventListener("resize", resizeCanvas);
 
+    if ("IntersectionObserver" in window) {
+      sectionObserver = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+          if (!visible?.target?.id) return;
+          activeSection.current = visible.target.id;
+          document.body.dataset.activeSection = visible.target.id;
+        },
+        { threshold: [0.26, 0.42, 0.58], rootMargin: "-18% 0px -32% 0px" }
+      );
+
+      document.querySelectorAll("main > section[id]").forEach((section) => {
+        sectionObserver.observe(section);
+      });
+    }
+
     return () => {
       cancelAnimationFrame(frameId);
       window.removeEventListener("resize", resizeCanvas);
+      sectionObserver?.disconnect();
+      delete document.body.dataset.activeSection;
     };
   }, []);
 
@@ -348,6 +434,7 @@ export default function LandingPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
   const [successOpen, setSuccessOpen] = useState(false);
+  const [internationalLang, setInternationalLang] = useState("pt");
   const [formState, setFormState] = useState({
     sending: false,
     message: "Você envia o essencial. Eu respondo com o próximo passo.",
@@ -539,7 +626,7 @@ export default function LandingPage() {
             <p className="eyebrow">Synaliz | estúdio de design e desenvolvimento web</p>
             <h1>Sua marca tem valor. Seu site precisa mostrar isso.</h1>
             <p className="hero-text">
-              A Synaliz une design, desenvolvimento, SEO e estratégia para transformar sua marca
+              A Synaliz une design, desenvolvimento, presença no Google e estratégia para transformar sua marca
               em um site claro, rápido e memorável.
             </p>
             <div className="hero-actions">
@@ -611,8 +698,8 @@ export default function LandingPage() {
         <section className="section-shell about" id="sobre">
           <div className="section-heading">
             <p className="eyebrow">Sobre a Synaliz</p>
-            <h2>Um estúdio web para empresas que não querem parecer menores do que são.</h2>
-            <p>Unimos estratégia, design e desenvolvimento para criar presença digital com identidade, clareza e base técnica profissional.</p>
+            <h2>Um estúdio web para empresas que querem transmitir o valor que têm.</h2>
+            <p>Unimos criatividade, estratégia, design e desenvolvimento para criar presença digital com identidade, clareza e base técnica profissional.</p>
           </div>
           <div className="about-panel">
             <div className="about-copy">
@@ -636,9 +723,10 @@ export default function LandingPage() {
         <section className="section-shell problem" id="problema">
           <div className="section-heading">
             <p className="eyebrow">O problema</p>
-            <h2>Presença digital genérica diminui a percepção de valor.</h2>
-            <p>Se sua marca é boa, o site precisa deixar isso claro antes da primeira conversa.</p>
+            <h2>Presença digital genérica diminui a percepção de valor do seu negócio.</h2>
+            <p>Se sua marca é boa, o site precisa deixar isso claro na primeira impressão.</p>
           </div>
+          <p className="list-context">Na prática, esses sinais atrapalham a confiança antes mesmo do cliente falar com você.</p>
           <div className="insight-grid">
             {problems.map(([title, text]) => (
               <article key={title}>
@@ -647,15 +735,16 @@ export default function LandingPage() {
               </article>
             ))}
           </div>
-          <p className="problem-closing">Tudo isso faz uma empresa boa parecer comum.</p>
+          <p className="problem-closing">Quando esses sinais se acumulam, uma empresa boa pode parecer comum.</p>
         </section>
 
         <section className="section-shell solution" id="solucao">
           <div className="section-heading">
             <p className="eyebrow">A solução</p>
-            <h2>Transformamos valor de marca em experiência digital clara.</h2>
-            <p>Design chama atenção. Estratégia, velocidade e mensagem certa sustentam a confiança.</p>
+            <h2>Criamos uma presença digital com a cara e a força da sua empresa.</h2>
+            <p>Garantimos o essencial para sua marca ser entendida, lembrada e procurada.</p>
           </div>
+          <p className="list-context solution-context">O que sua presença digital precisa entregar:</p>
           <div className="solution-grid">
             {solutions.map(([title, text]) => (
               <article key={title}>
@@ -758,8 +847,8 @@ export default function LandingPage() {
         <section className="section-shell performance" id="performance">
           <div className="section-heading">
             <p className="eyebrow">SEO e performance</p>
-            <h2>Preparado para busca, velocidade e crescimento.</h2>
-            <p>Criamos sites com estrutura técnica limpa, carregamento rápido, hierarquia correta, metadados e base preparada para rastreamento.</p>
+            <h2>Seu site está preparado para busca, velocidade e crescimento?</h2>
+            <p>Criamos sites com estrutura limpa, carregamento rápido, organização correta das páginas e base preparada para métricas.</p>
           </div>
           <div className="tech-grid">
             {performanceItems.map((item) => (
@@ -770,12 +859,42 @@ export default function LandingPage() {
 
         <section className="section-shell international" id="internacional">
           <div className="section-heading">
-            <p className="eyebrow">Brasil e exterior</p>
-            <h2>Projetos remotos para marcas que precisam de presença digital sem fronteiras.</h2>
-            <p>Processo claro, comunicação próxima e entrega profissional para empresas no Brasil e no exterior.</p>
-            <a className="btn secondary" href="#contato" onClick={() => trackEvent("click_start_project")}>
-              Start a project
-            </a>
+            <div className="language-row">
+              <p className="eyebrow">Brasil e exterior</p>
+              <div className="language-toggle" aria-label="Idioma da seção internacional">
+                <button
+                  type="button"
+                  className={internationalLang === "pt" ? "active" : ""}
+                  onClick={() => setInternationalLang("pt")}
+                >
+                  PT
+                </button>
+                <button
+                  type="button"
+                  className={internationalLang === "en" ? "active" : ""}
+                  onClick={() => setInternationalLang("en")}
+                >
+                  EN
+                </button>
+              </div>
+            </div>
+            {internationalLang === "pt" ? (
+              <>
+                <h2>Atendemos empresas no Brasil e no mundo com projetos digitais remotos.</h2>
+                <p>Sites, páginas e estruturas digitais com processo claro, comunicação próxima e entrega profissional.</p>
+                <a className="btn secondary" href="#contato" onClick={() => trackEvent("click_start_project")}>
+                  Iniciar projeto
+                </a>
+              </>
+            ) : (
+              <>
+                <h2>We work with companies in Brazil and worldwide through remote web projects.</h2>
+                <p>Websites, landing pages and digital structures with a clear process, close communication and professional delivery.</p>
+                <a className="btn secondary" href="#contato" onClick={() => trackEvent("click_start_project_en")}>
+                  Start a project
+                </a>
+              </>
+            )}
           </div>
         </section>
 
@@ -800,8 +919,8 @@ export default function LandingPage() {
           <div className="contact-card contact-card-lean">
             <div>
               <p className="eyebrow">Diagnóstico rápido</p>
-              <h2>Comece com um diagnóstico. Não com um orçamento no escuro.</h2>
-              <p>Escolha o caminho mais próximo do seu projeto e envie o essencial. Eu retorno com uma direção clara.</p>
+              <h2>Antes do orçamento, vamos entender sua necessidade.</h2>
+              <p>Envie o essencial sobre o projeto. Eu analiso e respondo com o melhor próximo passo.</p>
             </div>
             <form className="contact-form" onSubmit={handleContactSubmit}>
               <label>

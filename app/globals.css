@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 :root {
+  --font-inter: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-space: "Space Grotesk", Inter, system-ui, sans-serif;
+  --font-saira: Saira, "Space Grotesk", Inter, system-ui, sans-serif;
   --bg-primary: #070A0D;
   --bg-secondary: #0D1117;
   --bg-card: #111820;
@@ -24,6 +27,9 @@
   --coral: var(--text-secondary);
   --dark: var(--bg-primary);
   --max: 1180px;
+  --ambient-a: rgba(0, 221, 235, 0.16);
+  --ambient-b: rgba(11, 58, 66, 0.18);
+  --section-sweep: rgba(0, 221, 235, 0.07);
 }
 
 * {
@@ -67,10 +73,11 @@ body {
   color: var(--text);
   font-family: var(--font-inter), Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background:
-    radial-gradient(circle at 24% 0%, rgba(0, 221, 235, 0.16), transparent 30rem),
-    radial-gradient(circle at 82% 18%, rgba(11, 58, 66, 0.18), transparent 28rem),
+    radial-gradient(circle at 24% 0%, var(--ambient-a), transparent 30rem),
+    radial-gradient(circle at 82% 18%, var(--ambient-b), transparent 28rem),
     linear-gradient(135deg, #070A0D 0%, #0B3A42 52%, #070A0D 100%);
   overflow-x: hidden;
+  transition: background 420ms ease;
 }
 
 body.modal-open {
@@ -159,12 +166,35 @@ body::after {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background: linear-gradient(110deg, transparent 0 42%, rgba(0, 221, 235, 0.07) 50%, transparent 58% 100%);
+  background: linear-gradient(110deg, transparent 0 42%, var(--section-sweep) 50%, transparent 58% 100%);
   opacity: 0.62;
   transform: translateX(-70%);
   animation: ambientSweep 9s ease-in-out infinite;
 }
 
+
+body[data-active-section="problema"],
+body[data-active-section="comparacao"],
+body[data-active-section="contato"] {
+  --ambient-a: rgba(216, 166, 66, 0.1);
+  --ambient-b: rgba(11, 58, 66, 0.2);
+  --section-sweep: rgba(216, 166, 66, 0.055);
+}
+
+body[data-active-section="solucao"],
+body[data-active-section="performance"],
+body[data-active-section="metodo"] {
+  --ambient-a: rgba(0, 221, 235, 0.18);
+  --ambient-b: rgba(0, 158, 173, 0.14);
+  --section-sweep: rgba(0, 221, 235, 0.09);
+}
+
+body[data-active-section="faq"],
+body[data-active-section="internacional"] {
+  --ambient-a: rgba(167, 176, 184, 0.08);
+  --ambient-b: rgba(11, 58, 66, 0.15);
+  --section-sweep: rgba(167, 176, 184, 0.045);
+}
 a {
   color: inherit;
   text-decoration: none;
@@ -427,10 +457,24 @@ textarea {
 }
 
 .section-shell {
+  position: relative;
+  isolation: isolate;
   width: min(calc(100% - 32px), var(--max));
   margin: 0 auto;
 }
 
+
+.section-shell:not(.hero)::before {
+  content: "";
+  position: absolute;
+  inset: -76px -32px;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.72;
+  background:
+    radial-gradient(circle at var(--section-orb-x, 76%) var(--section-orb-y, 20%), var(--section-orb, rgba(0, 221, 235, 0.08)), transparent 22rem),
+    linear-gradient(135deg, transparent 0 42%, var(--section-band, rgba(0, 221, 235, 0.025)) 58%, transparent 76%);
+}
 .hero {
   position: relative;
   isolation: isolate;
@@ -2173,7 +2217,19 @@ select option:disabled {
     grid-template-columns: 1fr;
   }
 
-  .hero {
+  
+.section-shell:not(.hero)::before {
+  content: "";
+  position: absolute;
+  inset: -76px -32px;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.72;
+  background:
+    radial-gradient(circle at var(--section-orb-x, 76%) var(--section-orb-y, 20%), var(--section-orb, rgba(0, 221, 235, 0.08)), transparent 22rem),
+    linear-gradient(135deg, transparent 0 42%, var(--section-band, rgba(0, 221, 235, 0.025)) 58%, transparent 76%);
+}
+.hero {
     gap: 12px;
     padding-top: 118px;
     min-height: auto;
@@ -2280,7 +2336,19 @@ select option:disabled {
     animation: headerDrop 620ms ease both, mobileCtaGlow 4.2s ease-in-out 900ms infinite;
   }
 
-  .hero {
+  
+.section-shell:not(.hero)::before {
+  content: "";
+  position: absolute;
+  inset: -76px -32px;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.72;
+  background:
+    radial-gradient(circle at var(--section-orb-x, 76%) var(--section-orb-y, 20%), var(--section-orb, rgba(0, 221, 235, 0.08)), transparent 22rem),
+    linear-gradient(135deg, transparent 0 42%, var(--section-band, rgba(0, 221, 235, 0.025)) 58%, transparent 76%);
+}
+.hero {
     overflow: hidden;
   }
 
@@ -2562,7 +2630,19 @@ select option:disabled {
     width: min(calc(100% - 22px), var(--max));
   }
 
-  .hero {
+  
+.section-shell:not(.hero)::before {
+  content: "";
+  position: absolute;
+  inset: -76px -32px;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.72;
+  background:
+    radial-gradient(circle at var(--section-orb-x, 76%) var(--section-orb-y, 20%), var(--section-orb, rgba(0, 221, 235, 0.08)), transparent 22rem),
+    linear-gradient(135deg, transparent 0 42%, var(--section-band, rgba(0, 221, 235, 0.025)) 58%, transparent 76%);
+}
+.hero {
     padding-top: 112px;
     padding-bottom: 44px;
   }
@@ -3204,16 +3284,17 @@ select option:disabled {
 .mock-hero::before {
   content: "";
   position: absolute;
-  right: 28px;
+  right: 30px;
   top: 28px;
-  width: 108px;
-  height: 108px;
+  width: 104px;
+  height: 104px;
   border: 1px solid rgba(0, 221, 235, 0.22);
   border-radius: 50%;
   background:
-    radial-gradient(circle at 50% 50%, var(--green) 0 4px, transparent 5px),
-    linear-gradient(45deg, transparent 48%, rgba(0, 221, 235, 0.3) 49% 51%, transparent 52%);
-  opacity: 0.72;
+    radial-gradient(circle at 50% 50%, rgba(0, 221, 235, 0.13), transparent 62%),
+    url('/assets/synaliz-simbolo.svg') center / 52px 52px no-repeat;
+  filter: drop-shadow(0 0 18px rgba(0, 221, 235, 0.24));
+  opacity: 0.78;
 }
 
 .problem .section-heading {
@@ -3464,5 +3545,356 @@ select option:disabled {
 
   .method-panel::before {
     left: -21px;
+  }
+}
+
+/* Ajustes das anotações: marca nos diferenciais e trust strip mobile */
+.feature-list article::before {
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 0;
+  background: url('/assets/synaliz-simbolo.svg') center / contain no-repeat;
+  filter: grayscale(1) brightness(1.65) opacity(0.62);
+  box-shadow: none;
+}
+
+.feature-list article:hover::before {
+  filter: grayscale(0) brightness(1) opacity(0.9);
+}
+
+@media (max-width: 640px) {
+  .trust-strip {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    padding-bottom: 28px;
+  }
+
+  .trust-strip span {
+    width: 100%;
+    min-height: 46px;
+    justify-content: flex-start;
+    border-radius: 16px;
+    padding: 10px 12px;
+    font-size: 0.86rem;
+    line-height: 1.15;
+    background:
+      radial-gradient(circle at 12% 18%, rgba(0, 221, 235, 0.09), transparent 7rem),
+      rgba(17, 24, 32, 0.58);
+  }
+
+  .trust-strip span:nth-child(3),
+  .trust-strip span:nth-child(6) {
+    grid-column: span 2;
+  }
+}
+
+/* Respiro do símbolo Synaliz nos cards de diferenciais */
+.feature-list article::before {
+  margin-left: 8px;
+}
+
+@media (max-width: 640px) {
+  .feature-list article::before {
+    margin-left: 10px;
+  }
+}
+
+/* Peso visual por seção: o fundo acompanha a intenção de cada bloco */
+.about {
+  --section-orb-x: 18%;
+  --section-orb-y: 26%;
+  --section-orb: rgba(0, 221, 235, 0.07);
+  --section-band: rgba(167, 176, 184, 0.025);
+}
+
+.problem {
+  --section-orb-x: 14%;
+  --section-orb-y: 18%;
+  --section-orb: rgba(216, 166, 66, 0.1);
+  --section-band: rgba(216, 166, 66, 0.035);
+}
+
+.solution {
+  --section-orb-x: 84%;
+  --section-orb-y: 18%;
+  --section-orb: rgba(0, 221, 235, 0.12);
+  --section-band: rgba(0, 221, 235, 0.045);
+}
+
+.services {
+  --section-orb-x: 78%;
+  --section-orb-y: 12%;
+  --section-orb: rgba(0, 158, 173, 0.1);
+  --section-band: rgba(0, 221, 235, 0.03);
+}
+
+.differentials {
+  --section-orb-x: 20%;
+  --section-orb-y: 34%;
+  --section-orb: rgba(167, 176, 184, 0.07);
+  --section-band: rgba(0, 221, 235, 0.025);
+}
+
+.process {
+  --section-orb-x: 86%;
+  --section-orb-y: 42%;
+  --section-orb: rgba(0, 221, 235, 0.1);
+  --section-band: rgba(0, 158, 173, 0.035);
+}
+
+.comparison {
+  --section-orb-x: 16%;
+  --section-orb-y: 22%;
+  --section-orb: rgba(216, 166, 66, 0.09);
+  --section-band: rgba(216, 166, 66, 0.03);
+}
+
+.performance {
+  --section-orb-x: 72%;
+  --section-orb-y: 28%;
+  --section-orb: rgba(0, 221, 235, 0.12);
+  --section-band: rgba(0, 221, 235, 0.035);
+}
+
+.international,
+.faq {
+  --section-orb-x: 50%;
+  --section-orb-y: 16%;
+  --section-orb: rgba(167, 176, 184, 0.055);
+  --section-band: rgba(167, 176, 184, 0.02);
+}
+
+.contact {
+  --section-orb-x: 82%;
+  --section-orb-y: 18%;
+  --section-orb: rgba(216, 166, 66, 0.12);
+  --section-band: rgba(216, 166, 66, 0.035);
+}
+/* Intensidade extra do fundo por seção */
+.section-shell:not(.hero)::after {
+  content: "";
+  position: absolute;
+  inset: -44px -18px;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.86;
+  background:
+    radial-gradient(ellipse at var(--section-wash-x, 50%) var(--section-wash-y, 50%), var(--section-wash, rgba(0, 221, 235, 0.11)), transparent 48%),
+    linear-gradient(var(--section-angle, 135deg), transparent 0 28%, var(--section-veil, rgba(0, 221, 235, 0.045)) 46%, transparent 72%);
+}
+
+.about {
+  --section-wash-x: 12%;
+  --section-wash-y: 34%;
+  --section-wash: rgba(0, 221, 235, 0.1);
+  --section-angle: 20deg;
+}
+
+.problem {
+  --section-wash-x: 8%;
+  --section-wash-y: 22%;
+  --section-wash: rgba(216, 166, 66, 0.18);
+  --section-veil: rgba(216, 166, 66, 0.06);
+  --section-angle: 160deg;
+}
+
+.solution {
+  --section-wash-x: 88%;
+  --section-wash-y: 30%;
+  --section-wash: rgba(0, 221, 235, 0.2);
+  --section-veil: rgba(0, 221, 235, 0.07);
+  --section-angle: 32deg;
+}
+
+.services {
+  --section-wash-x: 70%;
+  --section-wash-y: 18%;
+  --section-wash: rgba(0, 158, 173, 0.18);
+  --section-veil: rgba(0, 221, 235, 0.055);
+  --section-angle: 118deg;
+}
+
+.differentials {
+  --section-wash-x: 20%;
+  --section-wash-y: 62%;
+  --section-wash: rgba(247, 249, 250, 0.09);
+  --section-veil: rgba(0, 221, 235, 0.05);
+  --section-angle: 76deg;
+}
+
+.process {
+  --section-wash-x: 90%;
+  --section-wash-y: 46%;
+  --section-wash: rgba(0, 221, 235, 0.18);
+  --section-veil: rgba(0, 158, 173, 0.06);
+  --section-angle: 145deg;
+}
+
+.comparison {
+  --section-wash-x: 12%;
+  --section-wash-y: 42%;
+  --section-wash: rgba(216, 166, 66, 0.16);
+  --section-veil: rgba(216, 166, 66, 0.055);
+  --section-angle: 54deg;
+}
+
+.performance {
+  --section-wash-x: 78%;
+  --section-wash-y: 28%;
+  --section-wash: rgba(0, 221, 235, 0.2);
+  --section-veil: rgba(0, 221, 235, 0.06);
+  --section-angle: 18deg;
+}
+
+.faq,
+.international {
+  --section-wash-x: 50%;
+  --section-wash-y: 28%;
+  --section-wash: rgba(167, 176, 184, 0.11);
+  --section-veil: rgba(167, 176, 184, 0.035);
+}
+
+.contact {
+  --section-wash-x: 82%;
+  --section-wash-y: 16%;
+  --section-wash: rgba(216, 166, 66, 0.2);
+  --section-veil: rgba(216, 166, 66, 0.07);
+  --section-angle: 130deg;
+}
+
+@media (max-width: 640px) {
+  .section-shell:not(.hero)::before {
+    inset: -46px -16px;
+    opacity: 0.95;
+  }
+
+  .section-shell:not(.hero)::after {
+    inset: -32px -16px;
+    opacity: 0.92;
+  }
+}
+/* Transições suaves entre atmosferas de seção */
+.section-shell:not(.hero)::before,
+.section-shell:not(.hero)::after {
+  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.55) 9%, #000 24%, #000 76%, rgba(0, 0, 0, 0.55) 91%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.55) 9%, #000 24%, #000 76%, rgba(0, 0, 0, 0.55) 91%, transparent 100%);
+}
+
+.section-shell:not(.hero)::before {
+  inset: -132px -40px;
+}
+
+.section-shell:not(.hero)::after {
+  inset: -104px -28px;
+}
+
+.section-shell + .section-shell {
+  margin-top: clamp(18px, 3vw, 42px);
+}
+
+@media (max-width: 640px) {
+  .section-shell:not(.hero)::before {
+    inset: -92px -18px;
+  }
+
+  .section-shell:not(.hero)::after {
+    inset: -76px -18px;
+  }
+}
+/* Ajustes de copy: contexto, idioma e WhatsApp */
+.list-context {
+  max-width: 720px;
+  margin: 24px 0 28px;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  line-height: 1.55;
+}
+
+.solution-context {
+  margin-top: 30px;
+  color: var(--text);
+  font-weight: 800;
+}
+
+.language-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.language-row .eyebrow {
+  margin: 0;
+}
+
+.language-toggle {
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid rgba(0, 221, 235, 0.28);
+  border-radius: 999px;
+  background: rgba(7, 10, 13, 0.42);
+}
+
+.language-toggle button {
+  min-width: 42px;
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 10px;
+  color: var(--muted);
+  background: transparent;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  transition: color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
+.language-toggle button.active {
+  color: var(--bg-primary);
+  background: var(--accent-gold);
+}
+
+.language-toggle button:hover {
+  color: var(--text);
+  transform: translateY(-1px);
+}
+
+.whatsapp-inline {
+  position: relative;
+  animation: whatsappPulse 2.4s ease-in-out infinite;
+}
+
+.whatsapp-inline::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  z-index: -1;
+  border: 1px solid rgba(0, 221, 235, 0.35);
+  border-radius: inherit;
+  opacity: 0;
+  animation: whatsappRing 2.4s ease-in-out infinite;
+}
+
+@keyframes whatsappPulse {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-1px) scale(1.025); }
+}
+
+@keyframes whatsappRing {
+  0% { opacity: 0.48; transform: scale(0.96); }
+  70%, 100% { opacity: 0; transform: scale(1.14); }
+}
+
+@media (max-width: 640px) {
+  .list-context {
+    margin: 20px 0 24px;
+    font-size: 1rem;
+  }
+
+  .language-row {
+    align-items: flex-start;
   }
 }
