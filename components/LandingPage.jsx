@@ -116,6 +116,30 @@ const processSteps = [
   ["06", "Evolução", "Melhorias, manutenção e novas oportunidades."],
 ];
 
+const testimonials = [
+  {
+    name: "Leandro",
+    role: "Empresário, Geomind Soluções Ambientais",
+    quote:
+      "Os diretores avaliaram e gostaram muito da estrutura do site. Atendimento profissional e resultado acima das expectativas.",
+    signal: "Profissionalismo",
+  },
+  {
+    name: "Rose",
+    role: "Empresária, rede de lanchonete e sorveteria",
+    quote:
+      "Atendimento rápido, trabalho impecável e entrega antes do prazo. Ainda tive suporte depois para tirar minhas dúvidas.",
+    signal: "Suporte e prazo",
+  },
+  {
+    name: "Flavio",
+    role: "Empresário, setor de hotelaria",
+    quote:
+      "Você traduziu muito bem a essência do nosso espaço na identidade e no desenvolvimento do site.",
+    signal: "Identidade de marca",
+  },
+];
+
 const trustItems = [
   "Estúdio web",
   "Sites sob medida",
@@ -431,6 +455,8 @@ function SignalField() {
 
 export default function LandingPage() {
   const heroFrameRef = useRef(null);
+  const headerRef = useRef(null);
+  const mobileNavRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
   const [successOpen, setSuccessOpen] = useState(false);
@@ -461,8 +487,25 @@ export default function LandingPage() {
   }, []);
 
   useEffect(() => {
+    if (!menuOpen) return undefined;
+
+    const closeMenuOnOutsideClick = (event) => {
+      const target = event.target;
+      const clickedHeader = headerRef.current?.contains(target);
+      const clickedMenu = mobileNavRef.current?.contains(target);
+
+      if (!clickedHeader && !clickedMenu) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("pointerdown", closeMenuOnOutsideClick);
+    return () => document.removeEventListener("pointerdown", closeMenuOnOutsideClick);
+  }, [menuOpen]);
+
+  useEffect(() => {
     const animatedItems = document.querySelectorAll(
-      ".section-heading, .service-grid article, .method-grid article, .contact-card"
+      ".section-heading, .service-grid article, .method-grid article, .proof-board, .contact-card"
     );
 
     if (!("IntersectionObserver" in window)) {
@@ -578,12 +621,12 @@ export default function LandingPage() {
     <>
       <SignalField />
 
-      <header className="site-header">
+      <header className="site-header" ref={headerRef}>
         <Brand />
         <nav className="desktop-nav" aria-label="Navegação principal">
           <a href="#sobre">Sobre</a>
-          <a href="#servicos">Serviços</a>
           <a href="#solucao">Soluções</a>
+          <a href="#servicos">Serviços</a>
           <a href="#metodo">Método</a>
           <a href="#contato">Contato</a>
         </nav>
@@ -602,11 +645,11 @@ export default function LandingPage() {
         </button>
       </header>
 
-      <nav className={`mobile-nav ${menuOpen ? "open" : ""}`} aria-label="Navegação mobile">
+      <nav ref={mobileNavRef} className={`mobile-nav ${menuOpen ? "open" : ""}`} aria-label="Navegação mobile">
         {[
           ["sobre", "Sobre"],
-          ["servicos", "Serviços"],
           ["solucao", "Soluções"],
+          ["servicos", "Serviços"],
           ["metodo", "Método"],
           ["contato", "Contato"],
         ].map(([item, label]) => (
@@ -814,6 +857,34 @@ export default function LandingPage() {
                   <span>{number}</span>
                   <h3>{title}</h3>
                   <p>{text}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section-shell social-proof" id="prova-social">
+          <div className="section-heading compact">
+            <p className="eyebrow">Prova social</p>
+            <h2>Confiança se constrói na entrega.</h2>
+            <p>Clientes reais que sentiram clareza, profissionalismo e cuidado durante o projeto.</p>
+          </div>
+          <div className="proof-board">
+            <article className="proof-feature">
+              <span className="proof-label">{testimonials[0].signal}</span>
+              <p>“{testimonials[0].quote}”</p>
+              <footer>
+                <strong>{testimonials[0].name}</strong>
+                <small>{testimonials[0].role}</small>
+              </footer>
+            </article>
+            <div className="proof-list" aria-label="Depoimentos de clientes">
+              {testimonials.slice(1).map((testimonial) => (
+                <article key={testimonial.name}>
+                  <span>{testimonial.signal}</span>
+                  <p>“{testimonial.quote}”</p>
+                  <strong>{testimonial.name}</strong>
+                  <small>{testimonial.role}</small>
                 </article>
               ))}
             </div>
@@ -1034,8 +1105,8 @@ export default function LandingPage() {
             <h3>Navegação</h3>
             <a href="#inicio">Início</a>
             <a href="#sobre">Sobre</a>
-            <a href="#servicos">Serviços</a>
             <a href="#solucao">Soluções</a>
+            <a href="#servicos">Serviços</a>
             <a href="#metodo">Método</a>
             <a href="#contato">Contato</a>
           </div>
