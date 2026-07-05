@@ -277,12 +277,22 @@ function WhatsAppIcon() {
   );
 }
 
-function Brand({ className = "brand", label = "Voltar para o início" }) {
+function Brand({ className = "brand", label = "Voltar para o início", onClick }) {
   return (
-    <a className={className} href="#inicio" aria-label={label}>
+    <a className={className} href="#inicio" aria-label={label} onClick={onClick}>
       <img className="brand-complete" src="/assets/synaliz-logo-oficial.svg" alt="" aria-hidden="true" />
     </a>
   );
+}
+
+function scrollToSection(event, sectionId) {
+  event?.preventDefault();
+
+  const section = document.getElementById(sectionId);
+  if (!section) return;
+
+  section.scrollIntoView({ behavior: "smooth", block: "start" });
+  window.history.pushState(null, "", `#${sectionId}`);
 }
 
 function SignalField() {
@@ -360,10 +370,13 @@ function SignalField() {
     let height = 0;
     let nodes = [];
     let frameId = 0;
+    let lastFrameAt = 0;
     let sectionObserver;
+    const isTouchViewport =
+      window.matchMedia("(hover: none), (pointer: coarse)").matches || window.innerWidth <= 760;
 
     function resizeCanvas() {
-      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      const ratio = isTouchViewport ? 1 : Math.min(window.devicePixelRatio || 1, 2);
       width = window.innerWidth;
       height = window.innerHeight;
       canvas.width = width * ratio;
@@ -372,7 +385,7 @@ function SignalField() {
       canvas.style.height = `${height}px`;
       ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
 
-      const count = Math.max(34, Math.floor(width / 32));
+      const count = isTouchViewport ? Math.max(18, Math.floor(width / 52)) : Math.max(34, Math.floor(width / 32));
       nodes = Array.from({ length: count }, () => ({
         x: Math.random() * width,
         y: Math.random() * height,
@@ -381,7 +394,14 @@ function SignalField() {
       }));
     }
 
-    function draw() {
+    function draw(timestamp = 0) {
+      const minFrameGap = isTouchViewport ? 66 : 0;
+      if (timestamp - lastFrameAt < minFrameGap) {
+        frameId = requestAnimationFrame(draw);
+        return;
+      }
+      lastFrameAt = timestamp;
+
       ctx.clearRect(0, 0, width, height);
       const tone = sectionTone[activeSection.current] || sectionTone.inicio;
       ctx.fillStyle = tone.dot;
@@ -617,20 +637,32 @@ export default function LandingPage() {
     frame.dataset.tiltY = "-13";
   }
 
+  function handleNavClick(event, sectionId) {
+    setMenuOpen(false);
+    scrollToSection(event, sectionId);
+  }
+
   return (
     <>
       <SignalField />
 
       <header className="site-header" ref={headerRef}>
-        <Brand />
+        <Brand onClick={(event) => handleNavClick(event, "inicio")} />
         <nav className="desktop-nav" aria-label="Navegação principal">
-          <a href="#sobre">Sobre</a>
-          <a href="#solucao">Soluções</a>
-          <a href="#servicos">Serviços</a>
-          <a href="#metodo">Método</a>
-          <a href="#contato">Contato</a>
+          <a href="#sobre" onClick={(event) => handleNavClick(event, "sobre")}>Sobre</a>
+          <a href="#solucao" onClick={(event) => handleNavClick(event, "solucao")}>Soluções</a>
+          <a href="#servicos" onClick={(event) => handleNavClick(event, "servicos")}>Serviços</a>
+          <a href="#metodo" onClick={(event) => handleNavClick(event, "metodo")}>Método</a>
+          <a href="#contato" onClick={(event) => handleNavClick(event, "contato")}>Contato</a>
         </nav>
-        <a className="header-cta" href="#contato" onClick={() => trackEvent("click_diagnostico", { location: "header" })}>
+        <a
+          className="header-cta"
+          href="#contato"
+          onClick={(event) => {
+            trackEvent("click_diagnostico", { location: "header" });
+            handleNavClick(event, "contato");
+          }}
+        >
           Solicitar diagnóstico
         </a>
         <button
@@ -653,7 +685,7 @@ export default function LandingPage() {
           ["metodo", "Método"],
           ["contato", "Contato"],
         ].map(([item, label]) => (
-          <a key={item} href={`#${item}`} onClick={() => setMenuOpen(false)}>
+          <a key={item} href={`#${item}`} onClick={(event) => handleNavClick(event, item)}>
             {label}
           </a>
         ))}
@@ -673,10 +705,24 @@ export default function LandingPage() {
               em um site claro, rápido e memorável.
             </p>
             <div className="hero-actions">
-              <a className="btn primary" href="#contato" onClick={() => trackEvent("click_diagnostico", { location: "hero" })}>
+              <a
+                className="btn primary"
+                href="#contato"
+                onClick={(event) => {
+                  trackEvent("click_diagnostico", { location: "hero" });
+                  handleNavClick(event, "contato");
+                }}
+              >
                 Solicitar diagnóstico
               </a>
-              <a className="btn secondary" href="#sobre" onClick={() => trackEvent("view_services", { location: "hero" })}>
+              <a
+                className="btn secondary"
+                href="#sobre"
+                onClick={(event) => {
+                  trackEvent("view_services", { location: "hero" });
+                  handleNavClick(event, "sobre");
+                }}
+              >
                 Conhecer a Synaliz
               </a>
             </div>
@@ -953,7 +999,14 @@ export default function LandingPage() {
               <>
                 <h2>Atendemos empresas no Brasil e no mundo com projetos digitais remotos.</h2>
                 <p>Sites, páginas e estruturas digitais com processo claro, comunicação próxima e entrega profissional.</p>
-                <a className="btn secondary" href="#contato" onClick={() => trackEvent("click_start_project")}>
+                <a
+                  className="btn secondary"
+                  href="#contato"
+                  onClick={(event) => {
+                    trackEvent("click_start_project");
+                    handleNavClick(event, "contato");
+                  }}
+                >
                   Iniciar projeto
                 </a>
               </>
@@ -961,7 +1014,14 @@ export default function LandingPage() {
               <>
                 <h2>We work with companies in Brazil and worldwide through remote web projects.</h2>
                 <p>Websites, landing pages and digital structures with a clear process, close communication and professional delivery.</p>
-                <a className="btn secondary" href="#contato" onClick={() => trackEvent("click_start_project_en")}>
+                <a
+                  className="btn secondary"
+                  href="#contato"
+                  onClick={(event) => {
+                    trackEvent("click_start_project_en");
+                    handleNavClick(event, "contato");
+                  }}
+                >
                   Start a project
                 </a>
               </>
@@ -1064,7 +1124,14 @@ export default function LandingPage() {
                 <span key={bullet}>{bullet}</span>
               ))}
             </div>
-            <a className="btn primary modal-cta" href="#contato" onClick={() => setSelectedService(null)}>
+            <a
+              className="btn primary modal-cta"
+              href="#contato"
+              onClick={(event) => {
+                setSelectedService(null);
+                handleNavClick(event, "contato");
+              }}
+            >
               {selectedService.cta}
             </a>
           </div>
@@ -1095,7 +1162,7 @@ export default function LandingPage() {
       <footer className="site-footer">
         <div className="footer-grid">
           <div className="footer-brand">
-            <Brand className="footer-logo" />
+            <Brand className="footer-logo" onClick={(event) => handleNavClick(event, "inicio")} />
             <p>Sites profissionais para empresas que precisam apresentar valor, transmitir confiança e facilitar o contato.</p>
             <p className="footer-mini">Design próprio, performance alta e desenvolvimento com direção técnica.</p>
             <span className="footer-signature">Direção técnica: Gabriel Ramos</span>
@@ -1103,12 +1170,12 @@ export default function LandingPage() {
 
           <div className="footer-column">
             <h3>Navegação</h3>
-            <a href="#inicio">Início</a>
-            <a href="#sobre">Sobre</a>
-            <a href="#solucao">Soluções</a>
-            <a href="#servicos">Serviços</a>
-            <a href="#metodo">Método</a>
-            <a href="#contato">Contato</a>
+            <a href="#inicio" onClick={(event) => handleNavClick(event, "inicio")}>Início</a>
+            <a href="#sobre" onClick={(event) => handleNavClick(event, "sobre")}>Sobre</a>
+            <a href="#solucao" onClick={(event) => handleNavClick(event, "solucao")}>Soluções</a>
+            <a href="#servicos" onClick={(event) => handleNavClick(event, "servicos")}>Serviços</a>
+            <a href="#metodo" onClick={(event) => handleNavClick(event, "metodo")}>Método</a>
+            <a href="#contato" onClick={(event) => handleNavClick(event, "contato")}>Contato</a>
           </div>
 
           <div className="footer-column">
@@ -1123,7 +1190,14 @@ export default function LandingPage() {
             <h3>Contato</h3>
             <a href="mailto:gabriel@synaliz.com">gabriel@synaliz.com</a>
             <a href="https://www.synaliz.com" target="_blank" rel="noreferrer">www.synaliz.com</a>
-            <a className="footer-cta" href="#contato" onClick={() => trackEvent("click_diagnostico", { location: "footer" })}>
+            <a
+              className="footer-cta"
+              href="#contato"
+              onClick={(event) => {
+                trackEvent("click_diagnostico", { location: "footer" });
+                handleNavClick(event, "contato");
+              }}
+            >
               Solicitar diagnóstico
             </a>
           </div>
