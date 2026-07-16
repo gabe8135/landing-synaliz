@@ -271,6 +271,17 @@ function trackEvent(name, params = {}) {
   window.gtag?.("event", name, params);
 }
 
+function trackLeadConversion(params = {}) {
+  trackEvent("generate_lead", params);
+
+  if (typeof window === "undefined" || !window.synalizAdsConversionSendTo) return;
+
+  window.gtag?.("event", "conversion", {
+    send_to: window.synalizAdsConversionSendTo,
+    ...params,
+  });
+}
+
 function WhatsAppIcon() {
   return (
     <img className="whatsapp-icon" src="/assets/whatsapp.svg" alt="" aria-hidden="true" />
@@ -588,6 +599,7 @@ export default function LandingPage() {
       form.reset();
       setFormState({ sending: false, message: "Mensagem enviada com sucesso.", error: false });
       setSuccessOpen(true);
+      trackLeadConversion({ form_name: "diagnostico", method: "formulario" });
     } catch {
       setFormState({
         sending: false,

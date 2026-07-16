@@ -1,4 +1,11 @@
 import "./globals.css";
+import Script from "next/script";
+
+const googleAnalyticsId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || "AW-18324280666";
+const googleAdsConversionLabel = process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL;
+const primaryGoogleTagId = googleAnalyticsId || googleAdsId;
+const googleConfigIds = [googleAnalyticsId, googleAdsId].filter(Boolean);
 
 export const metadata = {
   metadataBase: new URL("https://lpsynaliz.vercel.app"),
@@ -55,7 +62,32 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR">
-      <body>{children}</body>
+      <body>
+        {primaryGoogleTagId ? (
+          <>
+            <Script
+              id="google-tag-loader"
+              src={`https://www.googletagmanager.com/gtag/js?id=${primaryGoogleTagId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-tag-config" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                window.gtag = gtag;
+                gtag('js', new Date());
+                ${googleConfigIds.map((id) => `gtag('config', '${id}');`).join("\n")}
+                ${
+                  googleAdsId && googleAdsConversionLabel
+                    ? `window.synalizAdsConversionSendTo = '${googleAdsId}/${googleAdsConversionLabel}';`
+                    : ""
+                }
+              `}
+            </Script>
+          </>
+        ) : null}
+        {children}
+      </body>
     </html>
   );
 }
